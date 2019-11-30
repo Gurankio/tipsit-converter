@@ -1,27 +1,27 @@
-### Tipsit
+# Tipsit
 
 ## Codifiche
  Sempre passando per Binario / Decimale
 
-# Numeriche
+### Numeriche
 Romano
 Base X a Base Y 
 
-# Alfanumeriche
+### Alfanumeriche
 Ascii
 E-Ascii
 UTF-8
 UTF-16
 UTF-32
 
-# Pesati
+### Pesati
 BCD
 Aiken
 Quinario
 Biquinario
 2/5
 
-# Non pesati
+### Non pesati
 Eccesso 3
 Gray
 Eccesso 3 Riflesso
