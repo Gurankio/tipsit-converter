@@ -1,0 +1,6 @@
+# Disable all files
+*
+
+# Allow C source files
+!*.c
+!*.md
