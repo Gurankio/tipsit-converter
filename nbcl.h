@@ -1,4 +1,7 @@
-/*
+/* 
+//  Number Base Converter Library
+//  v 1.0
+//  Sushi Squad, 2019
 //  nbcl.h
 */
 
@@ -7,11 +10,12 @@
 #include "nbcl.cpp"
 using namespace std;
 
-// int (base 10) --> string (base n)
-string toBase(float, int, int);
-// string (base N) --> int (base 10)
-int fromBase(string, int);
+// double (base 10) --> string (base n)
+string toBase(double, int, int);
+
+// string (base N) --> double (base 10)
+double fromBase(string, int);
 
 // utils
-int findInAlphabet(char);
+int getValue(char);
 string reverse(string);
