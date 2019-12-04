@@ -1,7 +1,7 @@
 # Tipsit
 
 ## Codifiche
- Sempre passando per Binario / Decimale
+ Sempre passando per ~~Binario~~ / Decimale
 
 ### Numeriche
 * Romano
