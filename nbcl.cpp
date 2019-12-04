@@ -1,7 +1,7 @@
 /* 
 //  Number Base Converter Library
 //  v 1.0
-//  (c) Gionatan Buono
+//  Sushi Squad, 2019
 */
 
 #include <iostream>
@@ -9,29 +9,43 @@
 #include <math.h>
 
 using namespace std;
+
 // prototypes
-string toBase(int, int);
-int fromBase(string);
-int findInAlphabet(char);
+string toBase(double, int, int);
+double fromBase(string, int);
+int getValue(char);
 string reverse(string);
 
-// int (base 10) --> string (base n)
-string toBase(float num, int base, int precisione = 8)
+/*
+    toBase(number, base, precision):
+    Given a double number and precision(optional)
+    convert to given base
+    
+    type:
+    double (base 10) --> string (base n)
+*/
+string toBase(double num, int base, int precision = 8)
 {
     string res = "";
     const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
     
+    // dividing in integer and decimal part
     int dec = (int)num;
-    float dec1 = num-dec;
+    double dec1 = num - dec;
+
+    // converting the integer part
     while(dec > 0)
     {
         res.push_back(alphabet[dec%base]);
         dec/=base;
     }
     res = reverse(res);
+    
+    // add a dot
     res.push_back('.');
     
-    for(int i = 0; i < precisione; ++i)
+    // converting the decimal part
+    for(int i = 0; i < precision; ++i)
     {
     	dec1 *= base;
     	res.push_back(alphabet[(int)dec1]);
@@ -41,19 +55,37 @@ string toBase(float num, int base, int precisione = 8)
     return res;
 }
 
-// string (base N) --> int (base 10)
-int fromBase(string in, int base)
-{
-    int res = 0;
+/*
+    fromBase(number, N):
+    Given a string code and base N
+    convert to base 10
     
-    for(int i = 0; i < in.length(); i++)
-        res += findInAlphabet(in[i])*pow(base, in.length()-i-1);
+    type:
+    string (base N) --> double (base 10)
+*/
+double fromBase(string in, int base)
+{
+    double res = 0;
+    int dot = 0;
+    int i, j;
+
+    // first: find the dot
+    while(in[dot] != '.')
+        ++dot;
+    
+    // second: converting integer part
+    for(i = 0; i < dot; ++i)
+        res += getValue(in[i])*pow(base, dot-i-1);
+
+    // third: converting decimal part
+    for(j = -1, i = dot+1; i < in.length(); ++i, --j)
+        res += getValue(in[i])*pow(base, j);
 
     return res;
 }
 
 // return index of a character in the alphabet
-int findInAlphabet(char c)
+int getValue(char c)
 {
     const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
     for(int i = 0; i < alphabet.length(); ++i)
@@ -61,10 +93,11 @@ int findInAlphabet(char c)
             return i;
 }
 
+// reverse a string
 string reverse(string in){
 	
-	string res;
-	// tolgo 1 a in.length perchè l'ultimo carattere di una stringa è '\0'
+    string res;
+    // minus 1 because last char in string is "\0"
     for(int i = in.length()-1; i >= 0; --i)
     	res.push_back(in[i]);
     return res;
