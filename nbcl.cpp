@@ -11,21 +11,26 @@
 using namespace std;
 
 // prototypes
-string toBase(double, int, int);
+string toBase(string, int, int);
 double fromBase(string, int);
+string toRoman(int n);
+
 int getValue(char);
 string reverse(string);
+string addNchar(string, char, int);
+
 
 /*
     toBase(number, base, precision):
-    Given a double number and precision(optional)
+    Given a string rappresenting a double and precision(optional)
     convert to given base
     
     type:
-    double (base 10) --> string (base n)
+    string (base 10) --> string (base n)
 */
-string toBase(double num, int base, int precision = 8)
+string toBase(string n, int base, int precision = 8)
 {
+    double num = stod(n);
     string res = "";
     const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
     
@@ -41,17 +46,20 @@ string toBase(double num, int base, int precision = 8)
     }
     res = reverse(res);
     
-    // add a dot
-    res.push_back('.');
-    
-    // converting the decimal part
-    for(int i = 0; i < precision; ++i)
+    if(dec1 != 0)
     {
-    	dec1 *= base;
-    	res.push_back(alphabet[(int)dec1]);
-    	dec1 -= (int)dec1;
-	}
-    
+        // add a dot
+        res.push_back('.');
+        
+        // converting the decimal part
+        for(int i = 0; i < precision; ++i)
+        {
+            dec1 *= base;
+            res.push_back(alphabet[(int)dec1]);
+            dec1 -= (int)dec1;
+        }
+    }
+
     return res;
 }
 
@@ -70,18 +78,57 @@ double fromBase(string in, int base)
     int i, j;
 
     // first: find the dot
-    while(in[dot] != '.')
-        ++dot;
-    
+    for(i = 0; i < in.length(); ++i)
+        if(in[i] != '.')
+            ++dot;
+
     // second: converting integer part
     for(i = 0; i < dot; ++i)
         res += getValue(in[i])*pow(base, dot-i-1);
 
     // third: converting decimal part
-    for(j = -1, i = dot+1; i < in.length(); ++i, --j)
-        res += getValue(in[i])*pow(base, j);
+    if(dot!=in.length())
+        for(j = -1, i = dot+1; i < in.length(); ++i, --j)
+            res += getValue(in[i])*pow(base, j);
 
     return res;
+}
+
+
+/*
+    toRoman(number):
+    Given a decimal int
+    convert to roman
+    !up to 3999!
+
+    type:
+    string (base N) --> double (base 10)
+*/
+string toRoman(int n)
+{
+    string res = "";
+    string symbols = "IVXLCDM";
+    int cifra = 0; 
+
+    for(int i = 0; n != 0; i+=2, n/=10)
+    {
+        cifra = n%10;
+
+        if(cifra < 4) {
+            res = addNchar(res, symbols[i], cifra);
+        } else if (cifra == 4) {
+            res.push_back(symbols[i+1]);
+            res.push_back(symbols[i]);
+        } else if (cifra < 9) {
+            res = addNchar(res, symbols[i], cifra-5);
+            res.push_back(symbols[i+1]);
+        } else {
+            res.push_back(symbols[i+2]);
+            res.push_back(symbols[i]);
+        }
+        
+    }
+    return reverse(res);
 }
 
 // return index of a character in the alphabet
@@ -95,11 +142,16 @@ int getValue(char c)
 
 // reverse a string
 string reverse(string in){
-	
     string res;
     // minus 1 because last char in string is "\0"
     for(int i = in.length()-1; i >= 0; --i)
     	res.push_back(in[i]);
-    return res;
-    
+    return res;   
+}
+
+string addNchar(string s, char c, int n)
+{
+    for(; n > 0; n--)
+        s.push_back(c);
+    return s;
 }
