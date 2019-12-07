@@ -4,7 +4,7 @@
  Sempre passando per ~~Binario~~ / Decimale
 
 ### Numeriche
-* [ ] Romano
+* [X] Romano
 * [x] Base X a Base Y 
 
 ### Alfanumeriche
