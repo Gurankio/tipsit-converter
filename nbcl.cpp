@@ -12,8 +12,8 @@ using namespace std;
 
 // prototypes
 string toBase(string, int, int);
-double fromBase(string, int);
-string toRoman(int n);
+string fromBase(string, int);
+string toRoman(string);
 
 int getValue(char);
 string reverse(string);
@@ -21,12 +21,13 @@ string addNchar(string, char, int);
 
 
 /*
-    toBase(number, base, precision):
-    Given a string rappresenting a double and precision(optional)
-    convert to given base
-    
-    type:
-    string (base 10) --> string (base n)
+//  toBase(number, base, (precision)):
+//  Given a string rappresenting a double and 
+//  an (optional) int precision
+//  convert to given base
+//  
+//  type:
+//  string (base 10) --> string (base N)
 */
 string toBase(string n, int base, int precision = 8)
 {
@@ -64,48 +65,55 @@ string toBase(string n, int base, int precision = 8)
 }
 
 /*
-    fromBase(number, N):
-    Given a string code and base N
-    convert to base 10
-    
-    type:
-    string (base N) --> double (base 10)
+//  fromBase(number, N):
+//  Given a string code and base N
+//  convert to a string rappresenting
+//  a number in base 10
+//  
+//  type:
+//  string (base N) --> string (base 10)
 */
-double fromBase(string in, int base)
+string fromBase(string in, int base)
 {
-    double res = 0;
-    int dot = 0;
+    string res;
+    double sum = 0;
+    int dot = in.length();
     int i, j;
 
     // first: find the dot
     for(i = 0; i < in.length(); ++i)
-        if(in[i] != '.')
-            ++dot;
+        if(in[i] == '.')
+            dot = i;
 
     // second: converting integer part
     for(i = 0; i < dot; ++i)
-        res += getValue(in[i])*pow(base, dot-i-1);
+        sum += getValue(in[i])*pow(base, dot-i-1);
+
+    res = to_string((int)sum);
 
     // third: converting decimal part
-    if(dot!=in.length())
+    if(dot != in.length())
+    {
         for(j = -1, i = dot+1; i < in.length(); ++i, --j)
-            res += getValue(in[i])*pow(base, j);
+            sum += getValue(in[i])*pow(base, j);
+        res = to_string(sum);
+    }
 
     return res;
 }
 
 
 /*
-    toRoman(number):
-    Given a decimal int
-    convert to roman
-    !up to 3999!
-
-    type:
-    string (base N) --> double (base 10)
+//  toRoman(number):
+//  Given a string decimal convert to Roman
+//  
+//  !up to 3999!
+//  type:
+//  string (base 10) --> string (Roman)
 */
-string toRoman(int n)
+string toRoman(string num)
 {
+    int n = stoi(num);
     string res = "";
     string symbols = "IVXLCDM";
     int cifra = 0; 
@@ -149,6 +157,7 @@ string reverse(string in){
     return res;   
 }
 
+// add N char to a given string
 string addNchar(string s, char c, int n)
 {
     for(; n > 0; n--)
