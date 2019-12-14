@@ -35,7 +35,7 @@ string toBase(string n, string base_str, string precision_str = "8")
     int precision = stoi(precision_str);
     double num = stod(n);
     string res = "";
-    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
+    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_?!";
     
     // dividing in integer and decimal part
     int dec = (int)num;
@@ -145,7 +145,7 @@ string toRoman(string num)
 // return index of a character in the alphabet
 int getValue(char c)
 {
-    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
+    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_?!";
     for(int i = 0; i < alphabet.length(); ++i)
         if(alphabet[i] == c)
             return i;
