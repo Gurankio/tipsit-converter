@@ -47,7 +47,7 @@ string toBase(string n, int base, int precision = 8)
     }
     res = reverse(res);
     
-    if(dec1 != 0)
+    if(dec1 != 0 || precision == 0)
     {
         // add a dot
         res.push_back('.');
