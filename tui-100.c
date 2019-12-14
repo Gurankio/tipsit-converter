@@ -312,7 +312,7 @@ void ansi() {
 
   if (!SetConsoleMode(hConsole, consoleMode)) {
     printf("%s\n", "Error during ANSI escape characters activation. Is windows old?");
-    return 1;
+    return;
   }
 }
 
@@ -406,23 +406,3 @@ void ansi_background_color(ANSI_COLORS color) {
 void ansi_reset() {
   printf("\033[0m");
 }
-
-// // // // // // //
-
-int main() {
-  tui tui;
-
-  tui_start(&tui, 50, 20, "Test");
-  ansi_text_color(ANSI_RED); // Needs some fixing. But its pretty cool.
-  tui_dlg_out(&tui, 10, 10, 25, 3, "Title", "Hello\nAsdf\nAS{%d}DFGHJK\nasd\nqwerty");
-  // Cooler idea: one function when you find {%xx} you call vscanf(). void * should do the trick.
-
-  int i;
-  tui_dlg_in(&tui, 10, 10, 25, 3, "Title", "Hello World: ", "%d", &i);
-  tui_log_out(&tui, string_format("ASDF%d", i));
-  tui_confirm(&tui);
-  tui_end(&tui);
-
-  return 0;
-}
-
