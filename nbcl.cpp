@@ -7,7 +7,6 @@
 #include <iostream>
 #include <string>
 #include <math.h>
-
 using namespace std;
 
 // prototypes
@@ -29,7 +28,7 @@ string addNchar(string, char, int);
 //  type:
 //  string (base 10) --> string (base N)
 */
-string toBase(string n, string base_str, string precision_str = "8")
+string toBase(string n, string base_str, string precision_str)
 {
     int base = stoi(base_str);
     int precision = stoi(precision_str);
