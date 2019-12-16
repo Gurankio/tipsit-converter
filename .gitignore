@@ -2,5 +2,7 @@
 *
 
 # Allow C source files
+!*.h
 !*.c
+!*.cpp
 !*.md
