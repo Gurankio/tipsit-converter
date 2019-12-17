@@ -7,12 +7,11 @@
 #include <iostream>
 #include <string>
 #include <math.h>
-
 using namespace std;
 
 // prototypes
-string toBase(string, int, int);
-string fromBase(string, int);
+string toBase(string, string, string);
+string fromBase(string, string);
 string toRoman(string);
 
 int getValue(char);
@@ -29,11 +28,13 @@ string addNchar(string, char, int);
 //  type:
 //  string (base 10) --> string (base N)
 */
-string toBase(string n, int base, int precision = 8)
+string toBase(string n, string base_str, string precision_str)
 {
+    int base = stoi(base_str);
+    int precision = stoi(precision_str);
     double num = stod(n);
     string res = "";
-    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
+    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_?!";
     
     // dividing in integer and decimal part
     int dec = (int)num;
@@ -47,7 +48,7 @@ string toBase(string n, int base, int precision = 8)
     }
     res = reverse(res);
     
-    if(dec1 != 0 || precision == 0)
+    if(dec1 != 0 && precision != 0)
     {
         // add a dot
         res.push_back('.');
@@ -73,8 +74,9 @@ string toBase(string n, int base, int precision = 8)
 //  type:
 //  string (base N) --> string (base 10)
 */
-string fromBase(string in, int base)
+string fromBase(string in, string base_str)
 {
+    int base = stoi(base_str);
     string res;
     double sum = 0;
     int dot = in.length();
@@ -142,7 +144,7 @@ string toRoman(string num)
 // return index of a character in the alphabet
 int getValue(char c)
 {
-    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
+    const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_?!";
     for(int i = 0; i < alphabet.length(); ++i)
         if(alphabet[i] == c)
             return i;

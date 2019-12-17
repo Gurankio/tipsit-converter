@@ -10,11 +10,11 @@
 #include "nbcl.cpp"
 using namespace std;
 
-// double (base 10) --> string (base n)
-string toBase(string, int, int);
+// string (base 10) --> string (base n)
+string toBase(string, string, string);
 
 // string (base N) --> string (base 10)
-string fromBase(string, int);
+string fromBase(string, string);
 
 // string (base 10) --> string (roman) !up to 3999
 string toRoman(string);
