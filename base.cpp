@@ -7,8 +7,9 @@ using namespace std;
 class Converter {
 
 public:
-  virtual string from(string);
-  virtual string to(string);
+  virtual string check(string, map<int, string>);
+  virtual string from(string, map<int, string>);
+  virtual string to(string, map<int, string>);
 
 protected:
   // void registerConverter(string, Converter*);
