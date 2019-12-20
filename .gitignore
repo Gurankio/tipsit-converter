@@ -1,8 +1,6 @@
-# Disable all files
-*
+# Windows exclude
+*.exe
 
-# Allow C source files
-!*.h
-!*.c
-!*.cpp
-!*.md
+# Mac exclude
+*.o
+.DS_Store
