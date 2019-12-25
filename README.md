@@ -15,11 +15,11 @@
 * [ ] UTF-32
 
 ### Pesati
-* [ ] BCD
-* [ ] Aiken
-* [ ] Quinario
-* [ ] Biquinario
-* [ ] 2/5
+* [x] BCD
+* [x] Aiken
+* [x] Quinario
+* [x] Biquinario
+* [x] 2/5
 
 ### Non pesati
 * [ ] Eccesso 3
