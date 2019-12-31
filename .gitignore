@@ -1,6 +1,11 @@
-# Windows exclude
-*.exe
+# Ignore all
+*
 
-# Mac exclude
-*.o
-.DS_Store
+# Unignore all dirs
+!*/
+
+# Unignore all with extensions
+!*.c
+!*.h
+!*.cpp
+!*.md
