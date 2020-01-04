@@ -8,10 +8,14 @@
 #include <string>
 #include <string.h>
 #include <math.h>
+#include <vector>
+
 using namespace std;
 
 // prototipi
 string toWBase(string, string, bool);
+string fromWBase(string, string, bool);
+int bit2int(string, vector<int>, int);
 
 string aiken(char);
 string bcd(char);
@@ -54,12 +58,72 @@ string toWBase(string value, string encoding, bool spaces = true)
             res += ".";
         
         // adding spaces
-        if(value[i+1] != '.' && value[i+1] != '\0' && value[i] != '.' && spaces)
+        if(spaces &&value[i+1] != '.' && value[i+1] != '\0' && value[i] != '.')
             res += " ";
     }
     return res;
 }
 
+// the main function
+//
+// fromWBase(value, encoding, (spaces))
+//
+// Description:
+// given a value (string), the encoding (string) and (optional) option spaces (bool), 
+// it returns che converted value in decimal (string)
+//
+// string, string, bool -->  string
+// ex. fromWBase("1001.1111", "Aiken", false); // default true
+// encodings names:
+// "Aiken", "BCD", "Quinario", "Biquinario", "2su5"
+
+string fromWBase(string value, string encoding, bool spaces = true)
+{
+    string res = "";
+    vector<int> weights = {0,0,0,0,0,0,0};
+    int bit = 4;
+
+    if(encoding == "Aiken") {
+        weights = {2,4,2,1};
+    } else if(encoding == "BCD") {
+        weights = {8,4,2,1};
+    }
+    else if(encoding == "Quinario") {
+        weights = {5,4,2,1};
+    }
+    else if(encoding == "Biquinario") {
+        weights = {0,5,0,4,3,2,1,0};
+        if(!spaces)
+            weights = {0,5,4,3,2,1,0};
+        bit = 7 + spaces;
+    }
+    else if(encoding == "2su5") {
+        weights = {6,3,2,1,0};
+        bit = 5 + spaces;
+    }
+
+    string val = "";
+    for(int i = 0; i < value.length(); i++)
+    {
+        if(value[i] == '.') {
+            res += '.';
+        } else if(value[i] != ' ') {
+            val = value.substr(i, bit);
+            res += to_string(bit2int(val, weights, bit));
+            i += (bit-1);
+        }
+    }
+
+    return res;
+}
+
+int bit2int(string value, vector<int> w, int bit)
+{
+    int res = 0;
+    for(int i = 0; i < bit; ++i)
+        res += (value[i]-'0') * w[i];
+    return res;
+}
 
 /*
 // The following functions convert a 

@@ -137,6 +137,7 @@ int getValue(char c) {
 
   for (int i = 0; i < alphabet.length(); ++i)
     if (alphabet[i] == c) return i;
+  return -1;
 }
 
 // reverse a string
