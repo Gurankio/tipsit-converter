@@ -8,15 +8,11 @@
 
 using namespace std;
 using converterMap = map<string, function<Converter *()> >;
-converterMap converters;
+static converterMap converters;
 
 // Must get called once for each converter in handlerSetup();
 template <typename T>
 void registerConverter(string id) {
-  // Sample:
-  // converters.emplace("converter", []() -> Converter *{
-  //   return new Converter;
-  // });
   converters.emplace(id, []() -> Converter *{
     return new T;
   });

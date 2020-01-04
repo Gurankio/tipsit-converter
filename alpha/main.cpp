@@ -12,7 +12,7 @@ int main() {
   // Controllo stupido
   if (modIn != "numeric") return 0;
 
-  auto c = getConverter("numeric");
+  auto c = getConverter(modIn);
   guiData data = c->getGui();
 
   for (auto i = data.begin(); i != data.end(); ++i) {
@@ -28,13 +28,15 @@ int main() {
   cin >> dataIn;
 
   string internal = c->to(dataIn, data);
+
+  // DEBUG
   cout << internal << endl;
 
   cout << "Inserisci il tipo in OUTPUT:";
   string modOut;
   cin >> modOut;
 
-  c = getConverter("numeric");
+  c = getConverter(modOut);
   data = c->getGui();
 
   for (auto i = data.begin(); i != data.end(); ++i) {
