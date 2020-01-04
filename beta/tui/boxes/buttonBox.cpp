@@ -18,9 +18,9 @@ function<void(void)> getAction() {
   return action;
 }
 
-void onInteraction(char index) {
+bool onInteraction(char index) {
   getAction()();
-  return;
+  return true;
 }
 };
 

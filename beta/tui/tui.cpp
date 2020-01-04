@@ -2,12 +2,15 @@
 #define TUI
 
 #include <iostream>
+#include <functional>
+#include <algorithm>
 #include <future>
 #include <vector>
 #include <map>
 
 #include "vts.c"
 #include "../utility/sleep.c"
+#include "../utility/mapDeleteValue.cpp"
 #include "boxes/box.cpp"
 #include "boxes/textBox.cpp"
 #include "boxes/interactionBox.cpp"
@@ -18,6 +21,7 @@ class Tui {
 private:
 vector<Box *> boxes;
 map<char, InteractionBox *> interactions;
+map<char, function<void(char)> > events;
 char exitChar;
 bool shouldLoop;
 
@@ -33,7 +37,7 @@ Tui() {
   return;
 }
 
-Tui(int width, int height, char *title) : Tui() {
+Tui(int width, int height, string title) : Tui() {
   cp_sleep(250); // Must wait for the terminal window. there must be a better way.
   vts_resize(width, height);
 
@@ -48,14 +52,25 @@ void registerBox(Box *box) {
   boxes.push_back(box);
 }
 
-// delete ?
+void deleteBox(Box *box) {
+  boxes.erase(remove(boxes.begin(), boxes.end(), box), boxes.end());
+}
 
 void registerInteraction(InteractionBox *interactionBox) {
   for (unsigned long int i = 0; i < interactionBox->getInteractionIndex().size(); ++i)
     interactions.emplace(interactionBox->getInteractionIndex().at(i), interactionBox);
 }
 
-// delete ?
+void deleteInteraction(InteractionBox *interactionBox) {
+  mapDeleteValue(interactions, interactionBox);
+}
+
+void registerEvent(InteractionBox *interactionBox, function<void(int)> function) {
+  for (unsigned long int i = 0; i < interactionBox->getInteractionIndex().size(); ++i)
+    events.emplace(interactionBox->getInteractionIndex().at(i), function);
+}
+
+void deleteEvent(InteractionBox *);
 
 char getExitChar() {
   return exitChar;
@@ -91,11 +106,18 @@ void loop() {
     // isExit(input) -> break
     if (input == getExitChar()) break;
 
-    // isValid(input) -> continue
-    if (interactions.count(input) != 1) continue;
+    // isValid(input)
+    if (interactions.count(input) == 1) {
+      // Get the correct "interactionBox" instance and calls its handler.
+      bool changed = interactions.at(input)->onInteraction(input);
 
-    // Get the correct "interactionBox" instance and calls its handler.
-    interactions.at(input)->onInteraction(input);
+      // isValid(input)
+      if (changed && events.count(input) == 1) {
+        // Get the correct function and calls it.
+        events.at(input)(input);
+        //
+      }
+    }
 
     // shouldLoop() or loopCount() -> continue or break
     if (!getLoop()) break;

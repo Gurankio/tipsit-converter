@@ -10,7 +10,7 @@ using namespace std;
 class Box {
 private:
 int x, y, width, height;
-bool visible, extraVisible;
+bool visible, extraVisible, fixed;
 
 public:
 Box(int x, int y, int width, int height) {
@@ -20,6 +20,7 @@ Box(int x, int y, int width, int height) {
   this->height = height < 3 ? 0 : height - 2;
   setVisible(true);
   setExtraVisible(true);
+  setFixed(true);
 }
 
 int getX() {
@@ -46,12 +47,20 @@ bool getExtraVisible() {
   return extraVisible;
 }
 
+bool isFixed() {
+  return fixed;
+}
+
 void setVisible(bool visible) {
   this->visible = visible;
 }
 
 void setExtraVisible(bool extraVisible) {
   this->extraVisible = extraVisible;
+}
+
+void setFixed(bool fixed) {
+  this->fixed = fixed;
 }
 
 void print() {

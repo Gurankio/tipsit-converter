@@ -11,16 +11,24 @@ public:
 InputBox(int x, int y, int w, char i) : InteractionBox(x, y, w, 3, i) {
 }
 
-void onInteraction(char index) {
+bool onInteraction(char index) {
   int x = getX(), y = getY();
+  string oldValue = getValue();
+
+  vts_xy(x + 3, y + 1);
+
+  for (int i = 0; i < getWidth() - 4; ++i) cout << " ";
 
   vts_xy(x + 3, y + 1);
   // can allow movement by getting each charachter by himself. then vts.
-  char input[getWidth()];
+  char input[getWidth()] = { 0 };
   cin.ignore();
-  cin.getline(input, 100, '\n');
+  cin.getline(input, getWidth(), '\n');
+
+  if (input[0] == '\0') return false;
+
   setValue(string(input));
-  return;
+  return oldValue != getValue();
 }
 
 string getValue() {

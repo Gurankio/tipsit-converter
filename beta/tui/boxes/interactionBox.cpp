@@ -32,8 +32,8 @@ vector<char> getInteractionIndex() {
   return interactionIndex;
 }
 
-virtual void onInteraction(char index) {
-  return;
+virtual bool onInteraction(char index) {
+  return false;
 }
 };
 
