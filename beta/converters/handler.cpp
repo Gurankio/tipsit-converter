@@ -6,7 +6,13 @@
 // Base
 #include "codes/base.cpp"
 // List of converters
+#include "codes/aiken.cpp"
+#include "codes/bcd.cpp"
+#include "codes/biquinary.cpp"
 #include "codes/numeric.cpp"
+#include "codes/quinary.cpp"
+#include "codes/twoOnFive.cpp"
+
 
 using namespace std;
 using converterMap = map<string, function<Converter *()> >;
@@ -17,7 +23,12 @@ vector<string> keys;
 converterMap converters;
 
 ConverterHandler() {
+  registerConverter<Aiken>("Aiken");
+  registerConverter<BCD>("BCD");
+  registerConverter<Biquinary>("NumBiquinaryeric");
   registerConverter<Numeric>("Numeric");
+  registerConverter<Quinary>("Quinary");
+  registerConverter<TwoOnFive>("2/5");
 }
 
 ConverterHandler(ConverterHandler const&);

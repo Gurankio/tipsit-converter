@@ -5,10 +5,6 @@
 
 using namespace std;
 
-int getValue(char);
-string reverse(string);
-string addNchar(string, char, int);
-
 // return index of a character in the alphabet
 int getValue(char c) {
   const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_?!";
