@@ -91,7 +91,7 @@ void setLoop(bool shouldLoop) {
 // // // // // //
 
 void loop() {
-  while (1) {
+  do {
     printAll();
 
     // Input code. First row is reserved for input.
@@ -120,8 +120,8 @@ void loop() {
     }
 
     // shouldLoop() or loopCount() -> continue or break
-    if (!getLoop()) break;
-  }
+    // if (!getLoop()) break;
+  } while (getLoop());
 }
 };
 
