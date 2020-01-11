@@ -1,3 +1,5 @@
+#include <locale.h>
+
 // Converters
 #include "converters/handler.cpp"
 
@@ -16,6 +18,8 @@ void inputAddFields(char);
 void outputAddFields(char);
 
 int main() {
+  setlocale(LC_ALL, "");
+  vts_activateCommands();
   // auto tuiThread = async(tuiStart);
   tuiStart();
 }
