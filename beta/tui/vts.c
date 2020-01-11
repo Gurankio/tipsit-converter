@@ -257,7 +257,7 @@ void vts_cursorVerticalAbsolute(int n) {
 
 void vts_cursorXY(int x, int y) {
   #ifdef _WIN32
-  COORD p = { x, y + 2 };
+  COORD p = { x, (short int)(y + 2) };
   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
   #else
   printf("\x1b[%d);%dH", y + 1, x + 1);

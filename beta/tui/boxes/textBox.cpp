@@ -142,10 +142,10 @@ void printExtra() {
   // Value
 
   for (int i = 0; i < (int)value.size(); ++i) {
-    if (value.at(i).length() < width - (maxLeftLength + maxRightLength) / 2) {
+    //if (value.at(i).length() < width - (maxLeftLength + maxRightLength) / 2) {
       vts_xy(x + (maxLeftLength / 2) + 2, y + 1 + i);
       cout << value.at(i);
-    }
+    //}
   }
 }
 };
