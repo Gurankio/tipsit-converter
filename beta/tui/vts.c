@@ -21,8 +21,6 @@
 
 #endif
 
-using namespace std;
-
 // // Macro
 #define vts_xy(x, y) vts_cursorXY(x, y);
 
