@@ -12,13 +12,19 @@ private:
 vector<char> interactionIndex;
 
 public:
+InteractionBox(int x, int y, int width, int height) : TextBox(x, y, width, height) {
+  setInteractionIndex({ '0' });
+}
+
 InteractionBox(int x, int y, int width, int height, char interactionIndex) : TextBox(x, y, width, height) {
-  this->interactionIndex.push_back(interactionIndex);
-  vector<string> temp = { stringFormat("%c%c%c", '(', interactionIndex, ')') };
-  this->setLeft(temp);
+  setInteractionIndex({ interactionIndex });
 }
 
 InteractionBox(int x, int y, int width, int height, vector<char> interactionIndex) : TextBox(x, y, width, height) {
+  setInteractionIndex(interactionIndex);
+}
+
+void setInteractionIndex(vector<char> interactionIndex) {
   this->interactionIndex = interactionIndex;
   vector<string> temp;
 

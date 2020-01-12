@@ -48,6 +48,8 @@ Tui(int width, int height, string title) : Tui() {
   registerBox(root);
 }
 
+// // //
+
 void registerBox(Box *box) {
   boxes.push_back(box);
 }
@@ -92,7 +94,7 @@ void setLoop(bool shouldLoop) {
 
 void loop() {
   do {
-    printAll();
+    printAll(); // Intelligent print should remove refresh black screens in windows.
 
     // Input code. First row is reserved for input.
     vts_xy(1, 1);
@@ -108,10 +110,15 @@ void loop() {
 
     // isValid(input)
     if (interactions.count(input) == 1) {
-      // Get the correct "interactionBox" instance and calls its handler.
-      bool changed = interactions.at(input)->onInteraction(input);
+      auto box = interactions.at(input);
+      bool changed = false;
 
-      // isValid(input)
+      if (box->getVisible()) {
+        // Get the correct "interactionBox" instance and calls its handler.
+        changed = interactions.at(input)->onInteraction(input);
+        //
+      }
+
       if (changed && events.count(input) == 1) {
         // Get the correct function and calls it.
         events.at(input)(input);

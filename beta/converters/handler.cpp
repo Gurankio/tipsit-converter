@@ -25,7 +25,7 @@ converterMap converters;
 ConverterHandler() {
   registerConverter<Aiken>("Aiken");
   registerConverter<BCD>("BCD");
-  registerConverter<Biquinary>("NumBiquinaryeric");
+  registerConverter<Biquinary>("Biquinary");
   registerConverter<Numeric>("Numeric");
   registerConverter<Quinary>("Quinary");
   registerConverter<TwoOnFive>("2/5");

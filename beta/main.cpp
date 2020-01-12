@@ -67,11 +67,18 @@ void tuiStart() {
   tui->registerBox(button);
   tui->registerInteraction(button);
 
+  /*
+     vector<string> v;
+     v.push_back("Test 1");
+     v.push_back("Test 2");
+     PickerBox *settings = new PickerBox(45, 10, 15, 4, '-', v);
+     settings->setTitle("Settings");
+     settings->setMultiple(true);
+     tui->registerBox(settings);
+     tui->registerInteraction(settings);
+   */
+
   tui->loop();
-  // do {
-  //   interrupted = false;
-  //   tui->loop();
-  // }  while (interrupted);
 }
 
 void convertAction() {
@@ -112,7 +119,7 @@ void inputAddFields(char index) {
   inputExtraData.clear();
 
   vector<string> keys = ConverterHandler::getInstance().getKeys();
-  string key = keys.at(index - LIST_BOX_OFFSET);
+  string key = keys.at(index - LIST_BOX_START);
 
   tuiData data = ConverterHandler::getInstance().getConverter(key)->getTui();
 
@@ -141,7 +148,7 @@ void outputAddFields(char index) {
   outputExtraData.clear();
 
   vector<string> keys = ConverterHandler::getInstance().getKeys();
-  string key = keys.at(index - LIST_BOX_OFFSET);
+  string key = keys.at(index - LIST_BOX_START);
 
   tuiData data = ConverterHandler::getInstance().getConverter(key)->getTui();
 

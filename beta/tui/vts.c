@@ -333,7 +333,7 @@ void vts_textDeleteLine(int n) {
 
 // Text Formatting
 void vts_textDefault() {
-  printf("\x1b[1m");
+  printf("\x1b[0m");
   fflush(stdout);
 }
 
