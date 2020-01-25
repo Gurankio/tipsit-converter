@@ -8,9 +8,9 @@
 * [x] Base X a Base Y 
 
 ### Alfanumeriche
-* [ ] Ascii
-* [ ] E-Ascii
-* [ ] UTF-8
+* [x] Ascii
+* [x] E-Ascii
+* [x] UTF-8
 * [ ] UTF-16
 * [ ] UTF-32
 
