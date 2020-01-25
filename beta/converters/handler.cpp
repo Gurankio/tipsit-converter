@@ -32,7 +32,7 @@ ConverterHandler() {
   registerConverter<Numeric>("Numeric");
   registerConverter<Quinary>("Quinary");
   registerConverter<TwoOnFive>("2/5");
-  registerConverter<Utf8>("Utf8");
+  registerConverter<utf8>("utf8");
   registerConverter<ASCII>("ASCII");
   registerConverter<ExASCII>("ExASCII");
 }
