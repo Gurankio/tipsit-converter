@@ -40,7 +40,7 @@ void vts_cursorNextLine(int);
 void vts_cursorPreviousLine(int);
 void vts_cursorHorizontalAbsolute(int);
 void vts_cursorVerticalAbsolute(int);
-void vts_cursorXY(int, int);
+void vts_cursorXY(short int, short int);
 void vts_cursorSave();
 void vts_cursorRestore();
 
@@ -208,8 +208,12 @@ void vts_resize(int width, int height) {
 }
 
 void vts_clear() {
+  #ifdef _WIN32
+  system("cls");
+  #else
   printf("\x1b[2J");
   fflush(stdout);
+  #endif
 }
 
 // Cursor Positioning
@@ -253,9 +257,10 @@ void vts_cursorVerticalAbsolute(int n) {
   fflush(stdout);
 }
 
-void vts_cursorXY(int x, int y) {
+void vts_cursorXY(short int x, short int y) {
   #ifdef _WIN32
-  COORD p = { x, (short int)(y + 2) };
+  short int temp = (short int)(y + 2);
+  COORD p = { x,  temp };
   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), p);
   #else
   printf("\x1b[%d);%dH", y + 1, x + 1);

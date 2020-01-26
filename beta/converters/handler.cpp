@@ -12,6 +12,9 @@
 #include "codes/numeric.cpp"
 #include "codes/quinary.cpp"
 #include "codes/twoOnFive.cpp"
+#include "codes/utf8.cpp"
+#include "codes/ASCII.cpp"
+#include "codes/ExASCII.cpp"
 
 
 using namespace std;
@@ -29,6 +32,9 @@ ConverterHandler() {
   registerConverter<Numeric>("Numeric");
   registerConverter<Quinary>("Quinary");
   registerConverter<TwoOnFive>("2/5");
+  registerConverter<utf8>("utf8");
+  registerConverter<ASCII>("ASCII");
+  registerConverter<ExASCII>("ExASCII");
 }
 
 ConverterHandler(ConverterHandler const&);
