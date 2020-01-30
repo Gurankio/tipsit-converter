@@ -27,29 +27,33 @@ bool onInteraction(char index) {
 void printExtra() {
   TextBox::printExtra();
 
-  int x = getX(), y = getY();
-  int width = getWidth(), height = getHeight();
+  /*
 
-  vts_lineDrawingSet();
+     int x = getX(), y = getY();
+     int width = getWidth(), height = getHeight();
 
-  vts_xy(x, y);
-  cout << "/";
+     vts_lineDrawingSet();
 
-  for (int i = 1; i < width; i++) {
-    vts_xy(x + i, y - 1);
-    cout << "_";
-  }
+     vts_xy(x, y);
+     cout << "/";
 
-  vts_xy(x + width - 1, y);
-  cout << "/";
+     for (int i = 1; i < width; i++) {
+     vts_xy(x + i, y - 1);
+     cout << "_";
+     }
 
-  for (int i = 0; i < height - 1; i++) {
-    vts_xy(x + width, y + i);
-    cout << TUI_VERTICAL;
-  }
+     vts_xy(x + width - 1, y);
+     cout << "/";
 
-  vts_xy(x + width - 1, y + height - 1);
-  cout << "/";
+     for (int i = 0; i < height - 1; i++) {
+     vts_xy(x + width, y + i);
+     cout << TUI_VERTICAL;
+     }
+
+     vts_xy(x + width - 1, y + height - 1);
+     cout << "/";
+
+   */
 
   /*
      vts_xy(x, y + height - 1);

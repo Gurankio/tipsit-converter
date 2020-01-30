@@ -8,21 +8,20 @@
 
 using namespace std;
 
-string remove0 (string);
+string remove0(string);
 string toBase1(string, string, string);
 string fromBase1(string, string);
 int getValue1(char);
-string reverse1(string); 
+string reverse1(string);
 
-string remove0 (string in){
-	int boole=1;
-	while (boole){
-		if (in[0]=='0'){
-			in.erase(0,1);
-		}
-		else boole=0;
-	}
-	return in;
+string remove0(string in) {
+  int boole = 1;
+
+  while (boole) {
+    if (in[0] == '0') in.erase(0, 1);
+    else boole = 0;
+  }
+  return in;
 }
 
 string toBase1(string n, string base_str, string precision_str) {
@@ -91,6 +90,7 @@ int getValue1(char c) {
 
   for (int i = 0; i < alphabet.length(); ++i)
     if (alphabet[i] == c) return i;
+
   return -1;
 }
 
@@ -105,5 +105,3 @@ string reverse1(string in) {
 }
 
 #endif // ifndef ALPHANUMERIC_UTILITY
-
-

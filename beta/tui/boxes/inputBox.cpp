@@ -1,6 +1,8 @@
 #ifndef TUI_INPUT_BOX
 #define TUI_INPUT_BOX
 
+#include <string.h>
+
 #include "interactionBox.cpp"
 
 // Could have its own file.
@@ -20,7 +22,6 @@ bool onInteraction(char index) {
   for (int i = 0; i < getWidth() - 4; ++i) cout << " ";
 
   vts_xy(x + 3, y + 1);
-  // can allow movement by getting each charachter by himself. then vts.
   char input[getWidth()] = { 0 };
   cin.ignore();
   cin.getline(input, getWidth(), '\n');
