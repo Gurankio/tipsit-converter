@@ -20,7 +20,7 @@ string check(string s, tuiData data) {
 string from(string s, tuiData data) {
   int base = stoi(data.at(1));
   int precision = stoi(data.at(2));
-  double num = stod(s);
+  double num = stod(s); // TODO/BUG: numeri troppo grossi vengono azzerati.
   string res = "";
   const string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
 
