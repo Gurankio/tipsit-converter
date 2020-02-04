@@ -9,6 +9,11 @@ using namespace std;
 
 class BCD : public Converter {
 private:
+
+public:
+BCD() {
+};
+
 string bcd(char figure) {
   int weight[] = { 8, 4, 2, 1 };
   int digit = figure - '0';
@@ -23,10 +28,6 @@ string bcd(char figure) {
 
   return res;
 }
-
-public:
-BCD() {
-};
 
 string check(string s, tuiData data) {
   cout << "Check.";
