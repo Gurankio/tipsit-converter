@@ -6,17 +6,18 @@
 #include <string>
 #include <math.h>
 
+//#include "xs3.cpp"
 #include "base.cpp"
 #include "bcd.cpp"
 #include "../../utility/weightedUtility.cpp"
 
 using namespace std;
 
-class XS3 : public Converter {
+class XS3r : public Converter {
 private:
 
 public:
-XS3() {
+XS3r() {
 };
 
 string check(string s, tuiData data) {
@@ -24,7 +25,7 @@ string check(string s, tuiData data) {
   return "TODO!";
 }
 
-string from(string input, tuiData data) // spaces? --> doesn't matter
+string from(string input, tuiData data) // ???
 {
     string res;
     string val = "";
@@ -48,9 +49,18 @@ string to(string input, tuiData data)
     string res;
     BCD b = BCD();
     
+    string byte, byter;
+
     for (int i = 0; i < input.length(); ++i) {
+        //byter = "0";
         if (input[i] != '.') {
-            res += b.bcd('0' + ((input[i] - '0') + 3));
+            byte = b.bcd('0' + ((input[i] - '0') + 3)); // eccesso tre
+            byter = "0" + byte.substr(0, 3);
+            for(int h = 0; h < 4; h++)
+                if(byte[h] == byter[h])
+                    res += "0";
+                else
+                    res += "1";
         } else res += ".";
 
         // adding spaces
