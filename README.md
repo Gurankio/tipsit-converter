@@ -22,9 +22,9 @@
 * [x] 2/5
 
 ### Non pesati
-* [ ] Eccesso 3
-* [ ] Gray
-* [ ] Eccesso 3 Riflesso
+* [X] Eccesso 3
+* [?] Gray
+* [X] Eccesso 3 Riflesso
 * [ ] 1 su N
 * [ ] 7 Segmenti
 * [ ] Matrice
