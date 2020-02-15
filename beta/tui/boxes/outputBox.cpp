@@ -47,16 +47,14 @@ void printExtra() {
 bool onInteraction(char index) {
   if (!longer) return false;
 
-  const int PADDING = 8;
-  int width = getWidth(), height = getHeight();
+  // const int PADDING = 8;
 
-  TextBox *longerBox = new TextBox(PADDING, PADDING, width - PADDING, height - PADDING);
-
-  longerBox->setValue(stringCountSplit(longerStrings, width - 2 * PADDING));
+  TextBox *longerBox = new TextBox(1, 2, 100 - 2, 40 - 3);
+  longerBox->setValue(stringCountSplit(longerStrings, 100 - 4));
 
   Tui *fullView = new Tui();
   fullView->registerBox(longerBox);
-  fullView->setLoop(false);
+  fullView->setLoop(true);
   fullView->loop();
 
   return true;

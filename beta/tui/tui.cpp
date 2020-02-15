@@ -113,11 +113,11 @@ void loop() {
       auto box = interactions.at(input);
       bool changed = false;
 
-      if (box->getVisible()) {
-        // Get the correct "interactionBox" instance and calls its handler.
-        changed = interactions.at(input)->onInteraction(input);
-        //
-      }
+      //if (box->getVisible()) {
+      // Get the correct "interactionBox" instance and calls its handler.
+      changed = interactions.at(input)->onInteraction(input);
+      //
+      //}
 
       if (changed && events.count(input) == 1) {
         // Get the correct function and calls it.

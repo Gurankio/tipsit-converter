@@ -55,6 +55,7 @@ void tuiStart() {
   outputData = new OutputBox(66, 2, 30, 3, nextInteraction++);
   outputData->setTitle("Output Data");
   tui->registerBox(outputData);
+  tui->registerInteraction(outputData);
 
   outputMod = new ListBox(66, 6, 30, nextInteraction++, keys);
   outputMod->setTitle("Output Mod");
@@ -66,17 +67,6 @@ void tuiStart() {
   button->setValue("Convert");
   tui->registerBox(button);
   tui->registerInteraction(button);
-
-  /*
-     vector<string> v;
-     v.push_back("Test 1");
-     v.push_back("Test 2");
-     PickerBox *settings = new PickerBox(45, 10, 15, 4, '-', v);
-     settings->setTitle("Settings");
-     settings->setMultiple(true);
-     tui->registerBox(settings);
-     tui->registerInteraction(settings);
-   */
 
   tui->loop();
 }
@@ -92,7 +82,7 @@ void convertAction() {
   for (auto i = inputExtraData.begin(); i != inputExtraData.end(); ++i)
     dataIn.emplace(i->first, i->second->getValue());
 
-  string internal = cIn->to(inputData->getValue(), dataIn);
+  string internal = cIn->from(inputData->getValue(), dataIn);
 
   string cOutKey = outputMod->getValue();
 
@@ -104,7 +94,7 @@ void convertAction() {
   for (auto i = outputExtraData.begin(); i != outputExtraData.end(); ++i)
     dataOut.emplace(i->first, i->second->getValue());
 
-  string result = cOut->from(internal, dataOut);
+  string result = cOut->to(internal, dataOut);
 
   outputData->setValue(result);
 }
