@@ -18,7 +18,9 @@ static string pattern;
 string top = "";
 string bottom = "";
 vector<string> left;
+unsigned long int maxLeftLength = 0;
 vector<string> right;
+unsigned long int maxRightLength = 0;
 vector<string> value;
 
 public:
@@ -39,8 +41,16 @@ vector<string> getLeft() {
   return left;
 }
 
+unsigned long int getMaxLeftLength() {
+  return maxLeftLength;
+}
+
 vector<string> getRight() {
   return right;
+}
+
+unsigned long int getMaxRightLength() {
+  return maxRightLength;
 }
 
 vector<string> getValue() {
@@ -105,8 +115,6 @@ void printExtra() {
 
   // Left
 
-  unsigned long int maxLeftLength = 0;
-
   if ((int)left.size() == 1) {
     maxLeftLength = left.at(0).length();
 
@@ -122,8 +130,6 @@ void printExtra() {
   }
 
   // Right
-
-  unsigned long int maxRightLength = 0;
 
   if ((int)right.size() == 1) {
     maxRightLength = right.at(0).length();

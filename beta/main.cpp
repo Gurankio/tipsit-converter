@@ -7,6 +7,7 @@
 #include "tui/tui.cpp"
 #include "tui/boxes/textBox.cpp"
 #include "tui/boxes/inputBox.cpp"
+#include "tui/boxes/outputBox.cpp"
 #include "tui/boxes/listBox.cpp"
 #include "tui/boxes/buttonBox.cpp"
 
@@ -20,7 +21,6 @@ void outputAddFields(char);
 int main() {
   setlocale(LC_ALL, "");
   vts_activateCommands();
-  // auto tuiThread = async(tuiStart);
   tuiStart();
 }
 
@@ -32,7 +32,7 @@ InputBox *inputData;
 ListBox *inputMod;
 map<int, InputBox *> inputExtraData;
 
-TextBox *outputData;
+OutputBox *outputData;
 ListBox *outputMod;
 map<int, InputBox *> outputExtraData;
 
@@ -52,7 +52,7 @@ void tuiStart() {
   tui->registerBox(inputMod);
   tui->registerInteraction(inputMod);
 
-  outputData = new TextBox(66, 2, 30, 3);
+  outputData = new OutputBox(66, 2, 30, 3, nextInteraction++);
   outputData->setTitle("Output Data");
   tui->registerBox(outputData);
 
