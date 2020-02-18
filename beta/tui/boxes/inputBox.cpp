@@ -22,7 +22,10 @@ bool onInteraction(char index) {
   for (int i = 0; i < getWidth() - 4; ++i) cout << " ";
 
   vts_xy(x + 3, y + 1);
-  char input[getWidth()] = { 0 };
+  char input[getWidth()];
+  for (int i=0; i<getWidth(); i++) {
+    input[i] = '\0';
+  }
   cin.ignore();
   cin.getline(input, getWidth(), '\n');
 
