@@ -17,6 +17,19 @@ string check(string s, tuiData data) {
   return "TODO!";
 }
 
+string toMoreInput(string s, tuiData data)
+{
+  int oldIndex = 0;
+  string res;
+  for(int i = 0; i < s.length(); i++)
+    if(s[i] == ' ') {
+      res += to(s.substr(oldIndex, i), data) + " ";
+      oldIndex = i;
+    }
+  return res;
+}
+
+
 string from(string s, tuiData data) {
   int base = stoi(data.at(1));
   string res;
