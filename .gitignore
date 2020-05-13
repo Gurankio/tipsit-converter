@@ -4,6 +4,7 @@
 # Unignore all dirs
 !*/
 !/webpage/*
+!/node/*
 
 # Unignore all with extensions
 !*.c
