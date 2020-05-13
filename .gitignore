@@ -3,6 +3,7 @@
 
 # Unignore all dirs
 !*/
+!/webpage/*
 
 # Unignore all with extensions
 !*.c

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Modal</title>
+  <link href="./css/popup.css" rel="stylesheet">
+  <link href="./css/main.css" rel="stylesheet">
+  <script defer src="./js/script.js"></script>
+</head>
+<body>
+  <div class="page-title">
+    <h1>Progetto TPSIT</h1>
+  </div>
+
+  <div class="main-input-box">
+    <textarea type="input" id="input" class="main-textarea" placeholder="" onfocus="this.value=''"/>
+    </textarea>
+  </div>
+  
+  <div class="central">
+    <button data-modal-target="#modal" class="central-buttons">Seleziona conversione</button>
+    <button class="central-buttons">Scambia</button>
+  </div>
+
+  <div class="main-input-box">
+    <textarea id="input" class="main-textarea" placeholder="" onfocus="this.value=''"/>
+    </textarea>
+  </div>
+
+  <!-- POPUP -->
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div class="title">Choose your horseman</div>
+      <button data-close-button class="close-button">&times;</button>
+    </div>
+    <div class="modal-body">
+      
+      <!-- TABS CONTENT -->
+      <div class="wrapper">
+        <div class="tabs">
+          
+          <!--   CODICI ALFA NUMERICI   -->
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-1" checked class="tab-switch">
+            <label for="tab-1" class="tab-label">(Alfa) Numerici</label>
+            <div class="tab-content">
+              <ul id="menu">
+                <li><button class="hidden-button" onclick="show('roman-options')">Romano</button></li>
+                <li><button class="hidden-button" onclick="show('base2-options')">Base 2</button></li>
+                <li><button class="hidden-button" onclick="show('basen-options')">Base N</button></li>
+                <li><button class="hidden-button" onclick="show('ascii-options')">ASCII</button></li>
+                <li><button class="hidden-button" onclick="show('asciiex-options')">ASCII Esteso</button></li>
+                <li><button class="hidden-button" onclick="show('utf8-options')">UTF-8</button></li>
+              </ul>
+            </div>
+          </div>
+          
+          <!--   CODICI PESATI   -->
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-2" class="tab-switch">
+            <label for="tab-2" class="tab-label">Codici pesati</label>
+            <div class="tab-content">
+              <ul id="menu">
+                <li><button class="hidden-button" onclick="">BCD</button></li>
+                <li><button class="hidden-button" onclick="">Aiken</button></li>
+                <li><button class="hidden-button" onclick="">Quinario</button></li>
+                <li><button class="hidden-button" onclick="">Biquinario</button></li>
+                <li><button class="hidden-button" onclick="">2 su 5</button></li>
+             </ul>
+            </div>
+          </div>
+          
+          <!--   CODICI NON PESATI   -->
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-3" class="tab-switch">
+            <label for="tab-3" class="tab-label">Codici non pesati</label>
+            <div class="tab-content">
+              <ul id="menu">
+                <li><button class="hidden-button" onclick="">Eccesso 3</button></li>
+                <li><button class="hidden-button" onclick="">Gray</button></li>
+                <li><button class="hidden-button" onclick="">Eccesso 3 riflesso</button></li>
+                <li><button class="hidden-button" onclick="">1 su n</button></li>
+             </ul>
+            </div>
+          </div>
+          
+          <!--   ALTRO  -->
+          <div class="tab">
+            <input type="radio" name="css-tabs" id="tab-4" class="tab-switch">
+            <label for="tab-4" class="tab-label">Altro</label>
+            <div class="tab-content">
+              <ul id="menu">
+                <li><button class="hidden-button" onclick="">7 Segmenti</button></li>
+                <li><button class="hidden-button" onclick="">Fiscale</button></li>
+                <li><button class="hidden-button" onclick="">Operazioni con segno</button></li>
+             </ul>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <!--  OPTIONS  -->
+      <div class="options">
+        <div class="options-body">
+          <div class="option-tab" id="choose-option">
+            <p class="options-header">Options</p>
+            <p class="option-text">Scegli una delle basi a sinistra</p>
+          </div>
+
+          <div class="option-tab" id="roman-options">
+            <p class="options-header">Romano</p>
+            <form id="form" action="">
+              <div class="custom-text-input">
+                <p class="option-text">Option1</p>
+                <input type="input" class="option-text-input" placeholder="placeholder" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Option1</p>
+                <input type="input" class="option-text-input" placeholder="placeholder" onfocus="this.value=''"/>
+              </div>
+            </form>
+          </div>
+
+          <div class="option-tab" id="base2-options">
+            <input type="text" placeholder="Write here"><br>
+            <input type="text" placeholder="Write here"><br>
+            <input type="text" placeholder="Write here"><br>
+          </div>
+          
+          <div class="option-tab" id="basen-options">
+            <p class="options-header">Base N</p>
+            <form id="form" action="">
+              <div class="custom-text-input">
+                <p class="option-text">Base</p>
+                <input type="input" class="option-text-input" placeholder="10" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Precisione</p>
+                <input type="input" class="option-text-input" placeholder="8" onfocus="this.value=''"/>
+              </div>
+            </form>
+          </div>
+        </div>
+
+        <button class="ok-button">
+          Submit
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div id="overlay"></div>
+
+</body>
+</html>
