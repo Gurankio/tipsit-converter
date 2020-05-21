@@ -15,18 +15,23 @@
   </div>
 
   <div class="main-input-box">
-    <textarea type="input" id="input" class="main-textarea" placeholder="" onfocus="this.value=''"/>
-    </textarea>
+    <textarea type="input" id="input" class="main-textarea" placeholder="" onfocus="this.value=''"></textarea>
+    <div class="button-box">
+      <button data-modal-target="#modal" class="orange-button" id="choose-convertion">
+        Codifica Input
+      </button>
+    </div>
   </div>
   
   <div class="central">
-    <button data-modal-target="#modal" class="central-buttons">Seleziona conversione</button>
-    <button class="central-buttons">Scambia</button>
+    <div>
+      <button data-modal-target="#modal" class="orange-button" id="normal">Converti</button>
+      <button class="orange-button" id="normal">Scambia</button>
+    </div>
   </div>
 
   <div class="main-input-box">
-    <textarea id="input" class="main-textarea" placeholder="" onfocus="this.value=''"/>
-    </textarea>
+    <div class="main-textarea"></div>
   </div>
 
   <!-- POPUP -->
@@ -47,12 +52,12 @@
             <label for="tab-1" class="tab-label">(Alfa) Numerici</label>
             <div class="tab-content">
               <ul id="menu">
-                <li><button class="hidden-button" onclick="show('roman-options')">Romano</button></li>
-                <li><button class="hidden-button" onclick="show('base2-options')">Base 2</button></li>
-                <li><button class="hidden-button" onclick="show('basen-options')">Base N</button></li>
-                <li><button class="hidden-button" onclick="show('ascii-options')">ASCII</button></li>
-                <li><button class="hidden-button" onclick="show('asciiex-options')">ASCII Esteso</button></li>
-                <li><button class="hidden-button" onclick="show('utf8-options')">UTF-8</button></li>
+                <li id="roman"  ><button class="hidden-button" id="roman" onclick="show('roman-options', 'roman')">Romano</button></li>
+                <li id="base2"  ><button class="hidden-button" id="base2" onclick="show('base2-options', 'base2')">Base 2</button></li>
+                <li id="numeric"><button class="hidden-button" id="numerical" onclick="show('basen-options', 'numeric')">Base N</button></li>
+                <li id="ascii"  ><button class="hidden-button" id="ascii" onclick="show('ascii-options', 'ascii')">ASCII</button></li>
+                <li id="exascii"><button class="hidden-button" id="exascii" onclick="show('asciiex-options', 'exascii')">ASCII Esteso</button></li>
+                <li id="utf-8"  ><button class="hidden-button" id="utf-8" onclick="show('utf8-options', 'utf-8')">UTF-8</button></li>
               </ul>
             </div>
           </div>
@@ -63,11 +68,11 @@
             <label for="tab-2" class="tab-label">Codici pesati</label>
             <div class="tab-content">
               <ul id="menu">
-                <li><button class="hidden-button" onclick="">BCD</button></li>
-                <li><button class="hidden-button" onclick="">Aiken</button></li>
-                <li><button class="hidden-button" onclick="">Quinario</button></li>
-                <li><button class="hidden-button" onclick="">Biquinario</button></li>
-                <li><button class="hidden-button" onclick="">2 su 5</button></li>
+                <li id="bcd"      ><button class="hidden-button" id="bcd" onclick="show('weighted-options', 'bcd')">BCD</button></li>
+                <li id="aiken"    ><button class="hidden-button" id="aiken" onclick="show('weighted-options', 'aiken')">Aiken</button></li>
+                <li id="quinary"  ><button class="hidden-button" id="quinary" onclick="show('weighted-options', 'quinary')">Quinario</button></li>
+                <li id="biquinary"><button class="hidden-button" id="biquinary" onclick="show('weighted-options', 'biquinary')">Biquinario</button></li>
+                <li id="twoOnFive"><button class="hidden-button" id="twoOnFive" onclick="show('weighted-options', 'twoOnFive')">2 su 5</button></li>
              </ul>
             </div>
           </div>
@@ -78,15 +83,15 @@
             <label for="tab-3" class="tab-label">Codici non pesati</label>
             <div class="tab-content">
               <ul id="menu">
-                <li><button class="hidden-button" onclick="">Eccesso 3</button></li>
-                <li><button class="hidden-button" onclick="">Gray</button></li>
-                <li><button class="hidden-button" onclick="">Eccesso 3 riflesso</button></li>
-                <li><button class="hidden-button" onclick="">1 su n</button></li>
+                <li id="xs3" ><button class="hidden-button" id="xs3" onclick="show('non-weighted-options', 'xs3')">Eccesso 3</button></li>
+                <li id="gray"><button class="hidden-button" id="gray" onclick="show('non-weighted-options', 'gray')">Gray</button></li>
+                <li id="xs3r"><button class="hidden-button" id="xs3r" onclick="show('non-weighted-options', 'xs3r')">Eccesso 3 riflesso</button></li>
+                <li id="1onN"><button class="hidden-button" id="1onN" onclick="show('1onN-options', '1onN')">1 su n</button></li>
              </ul>
             </div>
           </div>
           
-          <!--   ALTRO  -->
+          <!--  ALTRO  -->
           <div class="tab">
             <input type="radio" name="css-tabs" id="tab-4" class="tab-switch">
             <label for="tab-4" class="tab-label">Altro</label>
@@ -117,10 +122,6 @@
                 <p class="option-text">Option1</p>
                 <input type="input" class="option-text-input" placeholder="placeholder" onfocus="this.value=''"/>
               </div>
-              <div class="custom-text-input">
-                <p class="option-text">Option1</p>
-                <input type="input" class="option-text-input" placeholder="placeholder" onfocus="this.value=''"/>
-              </div>
             </form>
           </div>
 
@@ -132,20 +133,130 @@
           
           <div class="option-tab" id="basen-options">
             <p class="options-header">Base N</p>
-            <form id="form" action="">
+            <form id="numeric-form" action="">
+
+              <!--
+                Numeric Options
+                - base (default: 10)
+                - decimalSeparator (default: .)
+                - precision (default: 8)
+              -->
+
               <div class="custom-text-input">
                 <p class="option-text">Base</p>
-                <input type="input" class="option-text-input" placeholder="10" onfocus="this.value=''"/>
+                <input id="base" type="input" class="option-text-input" placeholder="10" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Separatore (es 3.14 3,14)</p>
+                <input id="decimalSeparator" type="input" class="option-text-input" placeholder="." onfocus="this.value=''"/>
               </div>
               <div class="custom-text-input">
                 <p class="option-text">Precisione</p>
-                <input type="input" class="option-text-input" placeholder="8" onfocus="this.value=''"/>
+                <input id="precision" type="input" class="option-text-input" placeholder="8" onfocus="this.value=''"/>
               </div>
             </form>
           </div>
+
+          <div class="option-tab" id="ascii-options">
+            <p class="options-header">Base N</p>
+            <form id="numeric-form" action="">
+
+              <!--
+                Ascii Options
+                - base (default: 10)
+                - decimalSeparator (default: .)
+                - precision (default: 8)
+              -->
+
+              <div class="custom-text-input">
+                <p class="option-text">Base</p>
+                <input id="base" type="input" class="option-text-input" placeholder="10" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Separatore (es 3.14 3,14)</p>
+                <input id="decimalSeparator" type="input" class="option-text-input" placeholder="." onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Precisione</p>
+                <input id="precision" type="input" class="option-text-input" placeholder="8" onfocus="this.value=''"/>
+              </div>
+            </form>
+          </div>
+
+          <!--
+            Weighted Codes Options
+            - decimalSeparator (default: .)
+            - numberSeparator (default: " " (space))
+          -->
+
+          <div class="option-tab" id="weighted-options">
+            <p class="options-header">Codici Pesati</p>
+            <form id="numeric-form" action="">
+         
+              <div class="custom-text-input">
+                <p class="option-text">Separatore cifre</p>
+                <input id="numberSeparator" type="input" class="option-text-input" placeholder="space" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Separatore (es 3.14 3,14)</p>
+                <input id="decimalSeparator" type="input" class="option-text-input" placeholder="." onfocus="this.value=''"/>
+              </div>
+
+            </form>
+          </div>
+
+          <!--
+            1 on N Codes Options
+            - N (default: 8) ex. 5-> 0010000
+            - decimalSeparator (default: .)
+            - numberSeparator (default: " " (space))
+          -->
+
+          <div class="option-tab" id="1onN-options">
+            <p class="options-header">1 su N</p>
+            <form id="numeric-form" action="">
+              
+              <div class="custom-text-input">
+                <p class="option-text">N</p>
+                <input id="n" type="input" class="option-text-input" placeholder="8" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Separatore cifre</p>
+                <input id="numberSeparator" type="input" class="option-text-input" placeholder="space" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Separatore (es 3.14 3,14)</p>
+                <input id="decimalSeparator" type="input" class="option-text-input" placeholder="." onfocus="this.value=''"/>
+              </div>
+
+            </form>
+          </div>
+
+          <!--
+            Non Weighted Codes Options
+            - decimalSeparator (default: .)
+            - numberSeparator (default: " " (space))
+          -->
+
+          <div class="option-tab" id="non-weighted-options">
+            <p class="options-header">Codici Non Pesati</p>
+            <form id="numeric-form" action="">
+         
+              <div class="custom-text-input">
+                <p class="option-text">Separatore cifre</p>
+                <input id="numberSeparator" type="input" class="option-text-input" placeholder="space" onfocus="this.value=''"/>
+              </div>
+              <div class="custom-text-input">
+                <p class="option-text">Separatore (es 3.14 3,14)</p>
+                <input id="decimalSeparator" type="input" class="option-text-input" placeholder="." onfocus="this.value=''"/>
+              </div>
+
+            </form>
+          </div>
+
         </div>
 
-        <button class="ok-button">
+        <button class="ok-button" onclick="getData()">
           Submit
         </button>
       </div>
