@@ -106,15 +106,19 @@ function convert()
   console.log(document.getElementById("custom-textarea").value);
   input_txt += '"' + document.getElementById("custom-textarea").value  + '"' + ', ';
 
+  input_txt += '"inputType": "' + document.getElementById("hidden-input-type").textContent + '", ';
+
   if(document.getElementById("hidden-input-div").textContent == "")
-    input_txt += '"inputOpt":"", ';
+    input_txt += '"inputOptions":"", ';
   else
-    input_txt += '"inputOpt":'+ document.getElementById("hidden-input-div").textContent + ', ';
+    input_txt += '"inputOptions":'+ document.getElementById("hidden-input-div").textContent + ', ';
   
+  input_txt += '"outputType": "' + document.getElementById("hidden-output-type").textContent + '", ';
+
   if(document.getElementById("hidden-output-div").textContent == "")
-    input_txt += '"inputOpt":""}';
+    input_txt += '"outputOptions":""}';
   else
-    input_txt += '"outputOpt":' + document.getElementById("hidden-output-div").textContent + '}';
+    input_txt += '"outputOptions":' + document.getElementById("hidden-output-div").textContent + '}';
 
   console.log(JSON.parse(input_txt));
 }
