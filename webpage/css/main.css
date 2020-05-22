@@ -9,7 +9,8 @@
     padding: 10px;
 }
 
-.main-textarea{
+#custom-textarea{
+    padding: 10px;
     float: left;
     outline: none;
     resize: none;
@@ -17,9 +18,11 @@
     height: 100%;
     border: 2px solid grey;
     border-radius: 10px;
+
+    font-family: Arial, Helvetica, sans-serif;
 }
 
-.main-textarea:focus{
+#custom-textarea:focus{
     border-color: #FF8811;
     box-shadow: 0 0 1px 0 #FF8811;
 }
@@ -68,4 +71,9 @@
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
+}
+
+div#overlay
+{
+    visibility: hidden;
 }
