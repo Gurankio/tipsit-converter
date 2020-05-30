@@ -6,7 +6,9 @@ var mode = true;
 input_type = "numerical";
 
 openModalButtons.forEach(button => {
+
   button.addEventListener('click', () => {
+    document.getElementById("modal").style.transition = "200ms ease-in-out";
     const modal = document.querySelector(button.dataset.modalTarget)
     openModal(modal)
   })
@@ -35,6 +37,7 @@ function openModal(modal) {
 }
 
 function closeModal(modal) {
+  reset()
   if (modal == null) return
   modal.classList.remove('active')
   overlay.classList.remove('active')
@@ -60,35 +63,47 @@ function show(value, type){
   document.getElementById(value).style.visibility = "visible" ;
 }
 
+function reset()
+{
+  var divsToHide = document.getElementsByClassName("option-tab");
+
+  // getting visible option tab
+  for(var i = 0; i < divsToHide.length; i++){
+    var input_fields = divsToHide[i].getElementsByClassName("option-text-input");
+    for(var j = 0; j < input_fields.length; j++)
+      input_fields[j].value='';
+  }
+}
+
 function getData() {
   
   var divsToHide = document.getElementsByClassName("option-tab");
-    var optionTab = divsToHide[0];
+  var optionTab = divsToHide[0];
 
-    // getting visible option tab
-    for(var i = 0; i < divsToHide.length; i++){
-      if(divsToHide[i].style.visibility == "visible") {
-        optionTab = divsToHide[i];
-        i = divsToHide.length;
-      }
+  // getting visible option tab
+  for(var i = 0; i < divsToHide.length; i++){
+    if(divsToHide[i].style.visibility == "visible") {
+      optionTab = divsToHide[i];
+      i = divsToHide.length;
     }
+  }
 
-    var options = new Map();
+  var options = new Map();
 
-    // adding properties to map
-    var input_fields = optionTab.getElementsByClassName("option-text-input");
-    for(var i = 0; i < input_fields.length; i++) {
-      if(input_fields[i].value == "") {
-        if(input_fields[i].placeholder == "space")
-          options[input_fields[i].id] = " ";
-        else
-          options[input_fields[i].id] = input_fields[i].placeholder;
-      } else {
-        options[input_fields[i].id] = input_fields[i].value;
-      }
+  // adding properties to map
+  var input_fields = optionTab.getElementsByClassName("option-text-input");
+  for(var i = 0; i < input_fields.length; i++) {
+    if(input_fields[i].value == "") {
+      if(input_fields[i].placeholder == "space")
+        options[input_fields[i].id] = " ";
+      else
+        options[input_fields[i].id] = input_fields[i].placeholder;
+    } else {
+      options[input_fields[i].id] = input_fields[i].value;
     }
-    
-    console.log(options);
+  }
+  
+  console.log(options);
   
   if(document.getElementById("input-output").textContent == "input") {
     document.getElementById("hidden-input-type").textContent = input_type;
@@ -106,16 +121,23 @@ function convert()
   console.log(document.getElementById("custom-textarea").value);
   input_txt += '"' + document.getElementById("custom-textarea").value  + '"' + ', ';
 
-  if(document.getElementById("hidden-input-div").textContent == "")
-    input_txt += '"inputOpt":"", ';
-  else
-    input_txt += '"inputOpt":'+ document.getElementById("hidden-input-div").textContent + ', ';
-  
-  if(document.getElementById("hidden-output-div").textContent == "")
-    input_txt += '"inputOpt":""}';
-  else
-    input_txt += '"outputOpt":' + document.getElementById("hidden-output-div").textContent + '}';
+  input_txt += '"inputType": "' + document.getElementById("hidden-input-type").textContent + '", ';
 
+  if(document.getElementById("hidden-input-div").textContent == "")
+    input_txt += '"inputOptions":"", ';
+  else
+    input_txt += '"inputOptions":'+ document.getElementById("hidden-input-div").textContent + ', ';
+  
+  input_txt += '"outputType": "' + document.getElementById("hidden-output-type").textContent + '", ';
+
+  if(document.getElementById("hidden-output-div").textContent == "")
+    input_txt += '"outputOptions":""}';
+  else
+    input_txt += '"outputOptions":' + document.getElementById("hidden-output-div").textContent + '}';
+
+  // QUESTO E' IL JSON
+  // |    |    |    | 
+  // V    V    V    V 
   console.log(JSON.parse(input_txt));
 }
 
