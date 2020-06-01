@@ -1,84 +1,226 @@
-.body
-{
-    background-color: #08B2E3;
+*, *::after, *::before {
+box-sizing: border-box;
+margin: 0;
+padding: 0;
 }
 
 ::selection {
     color: none;
-    background: rgba(255, 136, 17, 0.295);
+    background: rgba(224, 157, 0, 0.39);
+}
+
+body {
+background-color: #306BAC;
+}
+
+/* Header **/
+.container {
+width: 90%;
+height: 55px;
+margin-left: 50px;
+}
+
+header {
+background: #050A30;
+color: #ffffff;
+padding-top: 20px;
+padding-bottom: 15px;
+min-height: 70px;
+border-bottom: #E09D00 5px solid;
+}
+
+header #page-title {
+float: left;
+}
+
+header #page-title img {
+height: 50px;
+border: 3px solid #E09D00;
+float: left;
+}
+
+header #page-title h1 {
+padding: 0;
+margin: 0;
+font-size: 40px;
+}
+
+header nav {
+float: left;
+padding-top: 10px;
+padding-left: 50px;
+}
+
+/* Menu **/
+nav .current a {
+color: #E09D00;
+font-weight: bold;
+}
+
+.top-level-menu {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+.top-level-menu>li {
+position: relative;
+float: left;
+height: 30px;
+width: 100px;
+background: #050A30;
+font-size: 16px;
+}
+
+.top-level-menu li:hover>ul {
+display: inline;
+}
+
+.top-level-menu a {
+color: #ffffff;
+text-decoration: none;
+text-transform: uppercase;
+padding: 0 0 0 10px;
+display: block;
+line-height: 30px;
+}
+
+nav a:hover {
+color: #8F6400;
+}
+
+/* Buttons and textareas **/
+.button_1 {
+height: 38px;
+background: #e8491d;
+border: 0;
+padding-left: 20px;
+padding-right: 20px;
+color: #ffffff;
+}
+
+.dark {
+padding: 15px;
+background: #35424a;
+color: #ffffff;
+margin-top: 10px;
+margin-bottom: 10px;
 }
 
 .main-input-box {
-    width: 100%;
-    height: 10em;
-    padding: 10px;
+width: 100%;
+height: 10em;
+padding: 10px;
 }
 
-#custom-textarea{
-    padding: 10px;
-    float: left;
-    outline: none;
-    resize: none;
-    width: 80%;
-    height: 100%;
-    border: 2px solid grey;
-    border-radius: 10px;
-
-    font-family: Arial, Helvetica, sans-serif;
+#custom-textarea {
+padding: 10px;
+float: left;
+outline: none;
+resize: none;
+width: 80%;
+height: 100%;
+border: 3px solid #4F6D7A;
+border-radius: 10px;
+font-family: Arial, Helvetica, sans-serif;
+background-color: white;
 }
 
-#custom-textarea:focus, #custom-textarea:active{
-    border-color: #FF8811 !important;
-    box-shadow: 0 0 1px 0 #FF8811 !important;
+#custom-textarea:focus {
+border-color: #E09D00 !important;
+box-shadow: 0 0 1px 0 #E09D00 !important;
 }
 
 .button-box {
-    float: right;
-    height: 100%;
-    width: 20%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+float: right;
+height: 100%;
+width: 20%;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .orange-button#choose-convertion {
-    height: 8em;
-    width: 12em;
+height: 8em;
+width: 12em;
 }
 
-.main-output{
-    width: 100%;
-    height: 40%;
+.main-output {
+width: 100%;
+height: 40%;
 }
 
-.central{
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+.central {
+width: 80%;
+display: flex;
+align-items: center;
+justify-content: center;
 }
 
 .orange-button#normal {
-    margin: 0px auto;
-    height: 4em;
-    width: 10em;
+margin: 10px 20px;
+height: 4em;
+width: 10em;
 }
 
-.orange-button{
-    cursor: pointer;
-    outline: none;
-    border-radius: 10px;
-    border: 1px solid rgb(165, 90, 15);
-    padding: 10px;
+.orange-button#normal img {
+width: 19px;
+height: 19px;
+vertical-align: text-bottom;
+}
 
-    background-color: #FF8811;
+.orange-button {
+border-image: initial;
+outline: none;
+border-radius: 10px;
+border: 2px solid #8F6400;
+padding: 10px 5px;
+background-color: #E09D00;
+color: white;
+text-align: center;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+font-size: 17px;
+}
+
+div#overlay {
+visibility: hidden;
+}
+
+img.invert {
+    -webkit-filter: invert(1);
+    filter: invert(1);
+}
+/* Footer */
+div#github-link{
+    height: 2em;
+    width: 10.5em;
+}
+
+img#github-logo {
+    display: inline;
+    padding: 2px;
+    max-height: 100%;
+}
+
+a#github-link {
+    float: right;
+    margin-top: 8px;
+    text-decoration: none;
+    max-height: 100%;
+}
+
+a#github-link:visited {
     color: white;
-    text-align: center;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
 }
 
-div#overlay
-{
-    visibility: hidden;
+#resources {
+    margin-left: 20px;
+    color: white;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+div#copyright {
+    margin-top: 5px;
+    margin-left: 5px;
 }

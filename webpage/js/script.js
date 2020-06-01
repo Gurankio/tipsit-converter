@@ -47,11 +47,14 @@ function closeModal(modal) {
 
 function show(value, type){
 
-  console.log(input_type)
   if(typeof input_type == "undefined" || typeof input_type == "null") {
     input_type = "numerical"; 
   }
+  if(typeof type == "undefined" || typeof type == "null") {
+    type = "numerical"; 
+  }
 
+  console.log(input_type+"->"+type);
   document.getElementById(input_type).classList.remove("active");
   input_type = type;
   document.getElementById(input_type).classList.add("active");
@@ -232,8 +235,6 @@ function inputCheck() {
     return true;
   }  
 }
-
-
 
 /* Esempio JSON
 
