@@ -27,9 +27,9 @@
     font-family: Arial, Helvetica, sans-serif;
 }
 
-#custom-textarea:focus{
-    border-color: #FF8811;
-    box-shadow: 0 0 1px 0 #FF8811;
+#custom-textarea:focus, #custom-textarea:active{
+    border-color: #FF8811 !important;
+    box-shadow: 0 0 1px 0 #FF8811 !important;
 }
 
 .button-box {

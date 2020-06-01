@@ -7,6 +7,8 @@
   <title>Modal</title>
   <link href="./css/popup.css" rel="stylesheet">
   <link href="./css/main.css" rel="stylesheet">
+  <script src="./js/p5.min.js"></script>
+  <script defer src="./js/animation.js"></script>
   <script defer src="./js/script.js"></script>
 </head>
 <body>
@@ -15,7 +17,7 @@
   </div>
 
   <div class="main-input-box">
-    <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder=""></textarea>
+    <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder="" onchange="inputCheck()"></textarea>
     <div class="button-box">
       <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "input";'>
         Codifica Input
@@ -31,7 +33,10 @@
   </div>
 
   <div class="main-input-box">
-    <div id="custom-textarea" class="output-textarea-box"></div>
+    <div id="custom-textarea" class="output-textarea-box">
+      <div id="output-value"></div>
+      <div id="p5-canvas"></div>
+    </div>
     <div class="button-box">
       <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "output";'>
         Codifica Output
@@ -103,7 +108,7 @@
             <div class="tab-content">
               <ul id="menu">
                 <li id="sevenSegment"><button class="hidden-button" id="sevenSegment" onclick="show('choose-option', 'sevenSegment')">7 Segmenti</button></li>
-                <li id="codFiscale"><button class="hidden-button" id="codFiscale" onclick="show('choose-option', 'codFiscale')">Fiscale</button></li>
+                <li id="codFiscale"><button class="hidden-button" id="fiscalCode" onclick="show('fiscal-options', 'fiscalCode')">Fiscale</button></li>
                 <li id="signOperation"><button class="hidden-button" id="signOperation" onclick="show('choose-option', 'signOperation')">Operazioni con segno</button></li>
              </ul>
             </div>
@@ -119,54 +124,17 @@
             <p class="options-header">Options</p>
             <p class="option-text">Scegli una delle basi a sinistra</p>
           </div>
-
-          <div class="option-tab" id="roman-options">
-            <p class="options-header">Romano</p>
-            <form id="form" action="">
-              <div class="custom-text-input">
-                <p class="option-text">Option1</p>
-                <input type="input" class="option-text-input" placeholder="placeholder" autocomplete="off" onfocus="this.value=''"/>
-              </div>
-            </form>
-          </div>
           
+          <!--
+            Numeric Options
+            - base (default: 10)
+            - decimalSeparator (default: .)
+            - precision (default: 8)
+          -->
+
           <div class="option-tab" id="basen-options">
             <p class="options-header">Base N</p>
             <form id="numeric-form" action="">
-
-              <!--
-                Numeric Options
-                - base (default: 10)
-                - decimalSeparator (default: .)
-                - precision (default: 8)
-              -->
-
-              <div class="custom-text-input">
-                <p class="option-text">Base</p>
-                <input id="base" type="input" class="option-text-input" autocomplete="off" placeholder="10" onfocus="this.value=''"/>
-              </div>
-              <div class="custom-text-input">
-                <p class="option-text">Separatore (es 3.14 3,14)</p>
-                <input id="decimalSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="." onfocus="this.value=''"/>
-              </div>
-              <div class="custom-text-input">
-                <p class="option-text">Precisione</p>
-                <input id="precision" type="input" class="option-text-input" autocomplete="off" placeholder="8" onfocus="this.value=''"/>
-              </div>
-            </form>
-          </div>
-
-          <div class="option-tab" id="ascii-options">
-            <p class="options-header">Base N</p>
-            <form id="numeric-form" action="">
-
-              <!--
-                Ascii Options
-                - base (default: 10)
-                - decimalSeparator (default: .)
-                - precision (default: 8)
-              -->
-
               <div class="custom-text-input">
                 <p class="option-text">Base</p>
                 <input id="base" type="input" class="option-text-input" autocomplete="off" placeholder="10" onfocus="this.value=''"/>
@@ -248,6 +216,55 @@
               <div class="custom-text-input">
                 <p class="option-text">Separatore (es 3.14 3,14)</p>
                 <input id="decimalSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="." onfocus="this.value=''"/>
+              </div>
+            </form>
+          </div>
+
+          <!--
+            Fiscal Code
+            - cognome (default: Rossi)
+            - Nome (default: Mario)
+            - Sesso (default: M)
+            - Comune di nascita (default: Firenze)
+            - Provincia (default: FI)
+            - Giorno (default: 4)
+            - Mese (default: 2)
+            - Anno (default: 1969)
+          -->
+
+          <div class="option-tab" id="fiscal-options">
+            <p class="options-header">Codice Fiscale</p>
+            <form id="fiscal-form" action="">
+         
+              <div class="custom-text-input">
+                <p class="option-text">Cognome</p>
+                <input id="surname" type="input" class="option-text-input" autocomplete="off" placeholder="Rossi" onfocus="this.value=''"/>
+              </div>
+              
+              <div class="custom-text-input">
+                <p class="option-text">Nome</p>
+                <input id="name" type="input" class="option-text-input" autocomplete="off" placeholder="Mario" onfocus="this.value=''"/>
+              </div>
+
+              <div class="custom-text-input">
+                <p class="option-text">Sesso</p>
+                <label for="sex-options"></label>
+                <select name="sex-options" id="sex">
+                  <option value="M">M</option>
+                  <option value="F">F</option>
+                </select>
+              </div>
+
+              <div id="fiscal-location">
+                <div class="custom-text-input" style="display: block;">
+                  <p class="option-text">Comune(Sigla)</p>
+                  <input id="comune" type="input" class="option-text-input" autocomplete="off" placeholder="Firenze(FI)" onfocus="this.value=''"/>
+                </div>
+              </div>
+
+              <div class="custom-text-input">
+                <p class="option-text">Data</p>
+                <input id="day" type="input" class="option-text-input" autocomplete="off" placeholder="4-2-1969" onfocus="this.value=''"/>
               </div>
             </form>
           </div>

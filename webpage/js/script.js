@@ -118,7 +118,14 @@ function getData() {
 function convert()
 {  
   var input_txt = '{"data":';
+  
+  if(!inputCheck()) {
+    alert("Malformed input!");
+    return -1;
+  }
+
   console.log(document.getElementById("custom-textarea").value);
+
   input_txt += '"' + document.getElementById("custom-textarea").value  + '"' + ', ';
 
   input_txt += '"inputType": "' + document.getElementById("hidden-input-type").textContent + '", ';
@@ -135,15 +142,23 @@ function convert()
   else
     input_txt += '"outputOptions":' + document.getElementById("hidden-output-div").textContent + '}';
 
-  // QUESTO E' IL JSON
-  // |    |    |    | 
-  // V    V    V    V 
+  //const converter = require("converter");
+
   console.log(JSON.parse(input_txt));
+  
+  if(document.getElementById("hidden-output-type").textContent == "sevenSegment") {
+    console.log("HELLO");
+    createDigits(0.4, ["0010111", "1001111", "0001110", "0001110", "1111110"]);//converter.convert(JSON.parse(input_txt)).split(" "));
+  }
+  
+  //console.log(converter.convert(JSON.parse(input_txt)));
+  // document.getElementById("output-value").textContent = converter.convert(JSON.parse(input_txt));
+  document.getElementById("output-value").textContent = "0010111 1001111 0001110 0001110 1111110";
 }
 
 function swap()
 {
-  var temp = document.getElementsByClassName("output-textarea-box")[0].textContent;
+  var temp = document.getElementById("output-value").textContent;
   document.getElementsByClassName("output-textarea-box")[0].textContent = '';
   
   //console.log(temp);
@@ -153,7 +168,7 @@ function swap()
     document.getElementById("custom-textarea").value = temp;
 
 
-  var temp = document.getElementById("hidden-input-div").textContent;
+  temp = document.getElementById("hidden-input-div").textContent;
   document.getElementById("hidden-input-div").textContent = document.getElementById("hidden-output-div").textContent;
   document.getElementById("hidden-output-div").textContent = temp;
 
@@ -162,17 +177,79 @@ function swap()
   document.getElementById("hidden-output-type").textContent = temp;
 }
 
+function inputCheck() {
+  let data = document.getElementById("custom-textarea").value;
+  let type = document.getElementById("hidden-input-type").textContent;
+  let opt = JSON.parse(document.getElementById("hidden-input-div").textContent);
+  console.log(opt);
+  let regex = ".";
+
+  switch(type) {
+    case "roman":
+      //    /^[ivxlcdmIVXLCDM]$/g
+      regex = '^[ivxlcdmIVXLCDM]+$';
+      break;
+    case "numeric":
+      //    /^[0-9]+(\.[0-9]{0,8})?$/g
+      regex = '^[0-'+(parseInt(opt["base"])-1)+']+(\\'+opt["decimalSeparator"]+'[0-'+(parseInt(opt["base"])-1)+']{0,'+opt["precision"]+'})?$';
+      break;
+    case "bcd": case "aiken": case "quinary": case "xs3": case "xs3r": case "grey":
+      //    /^([01]{4}( [01]{4})*)+(\.([01]{4}( [01]{4})*))$/g
+      regex = '^([01]{4}(' + opt["numberSeparator"] + '[01]{4})*)+(\\' + opt["decimalSeparator"] + '([01]{4}(' + opt["numberSeparator"] + '[01]{4})*))$';
+      break;
+    case "biquinary":
+      //    /(?=^[01]{2} [01]{5}( [01]{2} [01]{5})*(\.[01]{2} [01]{5}( [01]{2} [01]{5})*)?$)^0*10* 0*10*( 0*10* 0*10*)*(\.0*10* 0*10*( 0*10* 0*10*)*)?$/g
+      var length_format = '[01]{2}' + opt["numberSeparator"] + '[01]{5}';
+      var digit_format = '0*10*' + opt["numberSeparator"] + '0*10*';
+      regex = '(?=^'+length_format+'( '+length_format+')*(\.'+length_format+'( '+length_format+')*)?$)^'+digit_format+'( '+digit_format+')*(\.'+digit_format+'( '+digit_format+')*)?$';
+      break;
+    case "twoOnFive":
+      //    /(?=^[01]{5}( [01]{5})*(\.[01]{5}( [01]{5})*)?$)^0*10*10*( 0*10*10*)*(\.0*10*10*( 0*10*10*)*)?$/g
+      var digit_format = '0*10*10*';
+      regex = '(?=^[01]{5}('+opt["numberSeparator"]+'[01]{5})*(\.[01]{5}('+opt["numberSeparator"]+'[01]{5})*)?$)^0*10*10*('+opt["numberSeparator"]+'0*10*10*)*(\.0*10*10*('+opt["numberSeparator"]+'0*10*10*)*)?$';
+      break;
+    case "1onN":
+      //    /(?=^[01]{n}( [01]{n})*(\.[01]{n}( [01]{n})*)?$)^0*10*( 0*10*)*(\.0*10*( 0*10*)*)?$/g
+      var digit_format = '0*10*10*';
+      regex = '(?=^[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*(\.[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*)?$)^0*10*('+opt["numberSeparator"]+'0*10*)*(\.0*10*('+opt["numberSeparator"]+'0*10*)*)?$';
+      break;
+    case "sevenSegment":
+      //    /[01]{7}( [01]{7})*/g
+      regex = '^[01]{7}( [01]{7})*$';
+      break;
+  }
+  
+  r = new RegExp(regex);
+
+  console.log(r);
+  if(!r.test(data)) {
+    console.log("INPUT ERROR");
+    document.getElementById("custom-textarea").style.border = "2px solid red"; 
+    return false;
+  } else {
+    console.log("INPUT OK");
+    document.getElementById("custom-textarea").style.border = "2px solid grey";
+    return true;
+  }  
+}
+
+
+
 /* Esempio JSON
+
 {
-  data: "847584",
-  inputOpt: {
-    type: "numeric",
+  data: "847584", 
+  inputType: "numeric", 
+
+  inputOptions: {
     base: "10",
     decimalSeparator: ",",
     precision: "4"
-  },
-  outputOpt: {
-    type: "biquinary",
+  }, 
+
+  outputType: "biquinary", 
+
+  outputOptions: {
     numberSeparator: " ",
     decimalSeparator: "-"
   }

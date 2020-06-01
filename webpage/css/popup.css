@@ -253,6 +253,7 @@ ul#menu li:hover {
 }
 
 .option-text-input {
+  width: 100%;
   outline: none;
   background-color: white;
   border-radius: 3px;
