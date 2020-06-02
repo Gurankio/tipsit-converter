@@ -6,7 +6,7 @@
   "scripts": {
     "start": "electron .",
     "build": "electron-rebuild",
-    "make": "electron-packager . --all"
+    "make": "electron-packager ."
   },
   "author": "",
   "license": "ISC",
