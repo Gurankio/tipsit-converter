@@ -76,7 +76,7 @@ static const std::map<std::string, Code *> CODES = {
     { "roman", new Roman() },
     { "gray", new Gray() },
     { "oneOfN", new OneOfN() },
-    { "7segment", new Segment7() },
+    { "segment7", new Segment7() },
     { "fiscal", new Fiscal() }
 };
 
