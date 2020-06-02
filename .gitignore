@@ -1,14 +1,3 @@
-# Ignore all
-*
-
-# Unignore all dirs
-!*/
-!/webpage/**
-
-# Unignore all with extensions
-!*.c
-!*.h
-!*.cpp
-!*.hpp
-!*.md
-!*.zip
+converter/build
+converter/bin
+node_modules
