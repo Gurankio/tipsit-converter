@@ -15,7 +15,7 @@ std::string converter::Gray::to(const std::string& code) {
     size_t negative = codePositive.find('-');
     if (negative != std::string::npos) codePositive.erase(negative, 1);
     
-    uint64_t sum = 0;
+    int64_t sum = 0;
     for (int64_t i = 0; i < codePositive.length(); i++) {
         sum += (codePositive[i] - 48) * std::pow(2, codePositive.length() - i - 1);
     }

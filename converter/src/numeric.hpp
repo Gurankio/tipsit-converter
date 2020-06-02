@@ -22,7 +22,7 @@ private:
     std::string from(const std::string& base10);
         
 protected:
-    const std::string alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
+    const std::string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
     
     int64_t base = 10;
     int64_t precision = 6;

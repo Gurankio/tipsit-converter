@@ -28,6 +28,13 @@ std::string converter::Xs3r::to(const std::string& code) {
             int64_t sum = 0;
             for (size_t j = 0; j < this->weight.size(); j++)
                 sum += (number[j] - '0') * this->weight.at(j);
+            
+            uint64_t mask = sum >> 1;
+            while (mask != 0) {
+               sum = sum ^ mask;
+               mask = mask >> 1;
+            }
+            
             base10 += std::to_string(sum - 3); // notice the "-3"
             
             i += (this->weight.size() - 1); // nBits - 1

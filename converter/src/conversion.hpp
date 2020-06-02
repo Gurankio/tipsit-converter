@@ -39,25 +39,13 @@ private:
     std::map<std::string, std::string> outputOptions;
 
 public:
-    Conversion (); // EXPLODE
+    Conversion ();
     Conversion (const std::string& input,
                 const std::string& inputType,
                 const std::map<std::string, std::string>& inputOptions,
                 const std::string& outputType,
                 const std::map<std::string, std::string>& outputOptions);
     // virtual ~Conversion ();
-
-    std::string getInput() const; // EXPLODE
-    std::string getInputType() const; // EXPLODE
-    std::map<std::string, std::string> getInputOptions() const; // EXPLODE
-    std::string getOutputType() const; // EXPLODE
-    std::map<std::string, std::string> getOutputOptions() const; // EXPLODE
-
-    void setInput(const std::string& input); // EXPLODE
-    void setInputType(const std::string& inputType); // EXPLODE
-    void setInputOptions(const std::map<std::string, std::string>& inputOptions); // EXPLODE
-    void setOutputType(const std::string& outputType); // EXPLODE
-    void setOutputOptions(const std::map<std::string, std::string>& outputOptions); // EXPLODE
 
     std::string convert();
 };
@@ -76,7 +64,7 @@ static const std::map<std::string, Code *> CODES = {
     { "roman", new Roman() },
     { "gray", new Gray() },
     { "oneOfN", new OneOfN() },
-    { "7segment", new Segment7() },
+    { "segment7", new Segment7() },
     { "fiscal", new Fiscal() }
 };
 

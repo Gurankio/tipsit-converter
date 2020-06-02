@@ -15,6 +15,8 @@ namespace converter {
 
 class TwoOnFive : public Weighted {
 private:
+    std::string to(const std::string& code);
+    
     // Code specific implementation
     std::string from(int64_t base10);
     

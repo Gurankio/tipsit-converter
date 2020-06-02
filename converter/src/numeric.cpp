@@ -17,16 +17,16 @@ std::string converter::Numeric::to(const std::string& code) {
     std::string codePositive = code;
     size_t negative = codePositive.find('-');
     if (negative != std::string::npos) codePositive.erase(negative, 1);
-
+    
     size_t dot = codePositive.length();
     for (size_t i = 0; i < codePositive.length(); i++)
         if (codePositive[i] == this->decimalSeparator) dot = i;
-
+    
     size_t value;
     for (size_t i = 0; i < codePositive.length(); i++) {
         if ((value = this->alphabet.find(codePositive[i])) != std::string::npos) sum += value * std::pow(this->base, (signed)(dot - i - (i <= dot)));
     }
-
+    
     std::string base10 = std::to_string(sum * ((negative != std::string::npos) ? -1 : 1));
     base10.erase(base10.find_last_not_of('0') + 1, std::string::npos);
     base10.erase(base10.find_last_not_of('.') + 1, std::string::npos);
@@ -38,7 +38,7 @@ std::string converter::Numeric::to(const std::string& code) {
 std::string converter::Numeric::from(const std::string& base10) {
     double number = stod(base10);
     std::string code = "";
-
+    
     // Dividing in integer and decimal part
     int64_t integerPart = (int64_t)number;
     double_t decimalPart = std::abs(number - integerPart);
@@ -50,13 +50,13 @@ std::string converter::Numeric::from(const std::string& base10) {
         code.push_back(this->alphabet[integerPart % this->base]);
         integerPart /= this->base;
     }
-
+    
     reverse(code.begin(), code.end());
-
+    
     if (decimalPart != 0 && this->precision != 0) {
         // Add a dot
         code.push_back(this->decimalSeparator);
-
+        
         // Converting the decimal part
         for (size_t i = 0; i < this->precision; ++i) {
             decimalPart *= this->base;
@@ -64,7 +64,7 @@ std::string converter::Numeric::from(const std::string& base10) {
             decimalPart -= (int64_t)decimalPart;
         }
     }
-
+    
     if (number < 0) code.insert(code.begin(), '-');
     return code;
 }
@@ -75,18 +75,18 @@ converter::Numeric::Numeric () {
 
 converter::Code* converter::Numeric::setOptions(const std::map<std::string, std::string>& options) {
     Code::setOptions(options);
-
+    
     for (auto it = options.begin(); it != options.end(); it++) {
         if (it->first == "base") {
             this->base = stoll(it->second);
             continue;
         }
-
+        
         if (it->first == "precision") {
             this->precision = stoll(it->second);
             continue;
         }
     }
-
+    
     return this;
 }
