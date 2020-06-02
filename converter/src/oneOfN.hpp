@@ -1,34 +1,29 @@
 //
-//  weighted.hpp
+//  oneOfN.hpp
 //  TIPSIT
 //
-//  Created by Gurankio on 16/05/2020.
+//  Created by Gurankio on 31/05/2020.
 //  Copyright © 2020 Gurankio. All rights reserved.
 //
 
-#ifndef weighted_hpp
-#define weighted_hpp
+#ifndef oneOfN_hpp
+#define oneOfN_hpp
 
 #include "code.hpp"
 
 namespace converter {
 
-class Weighted : public Code {
+class OneOfN : public Code {
 private:
     std::string to(const std::string& code);
     
     std::string from(const std::string& base10);
-    
-    // Code specific implementation
-    virtual std::string from(int64_t base10);
-    
+
 protected:
-    std::vector<int> weight;
-    
-    char numberSeparator = '_';
+    int64_t length = 8;
     
 public:
-    Weighted ();
+    OneOfN ();
     // virtual ~Code ();
     
     Code* setOptions(const std::map<std::string, std::string>& options);
@@ -36,4 +31,4 @@ public:
 
 } /* converter */
 
-#endif /* aiken_hpp */
+#endif /* oneOfN_hpp */

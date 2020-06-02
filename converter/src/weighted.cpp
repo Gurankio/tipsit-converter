@@ -14,6 +14,10 @@ std::string converter::Weighted::to(const std::string& code) {
     std::string base10 = "";
     
     for (size_t i = 0; i < code.length(); i++) {
+        if (code[i] == '-') {
+            base10 += '-';
+            continue;
+        }
         
         if (code[i] == this->decimalSeparator) {
             base10 += '.';
@@ -40,6 +44,11 @@ std::string converter::Weighted::from(const std::string& base10) {
     std::string code = "";
     
     for (size_t i = 0; i < base10.length(); i++) {
+        if (base10[i] == '-') {
+            code += '-';
+            continue;
+        }
+        
         if (base10[i] == '.') {
             code += this->decimalSeparator;
             continue;

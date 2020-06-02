@@ -30,7 +30,7 @@ std::string converter::Ascii::to(const std::string& code) {
 // Code specific implementation
 std::string converter::Ascii::from(const std::string& base10) {
     std::string code = "";
-    code += (char)stoi(base10);
+    code += (char)stoll(base10);
     return code;
 }
 

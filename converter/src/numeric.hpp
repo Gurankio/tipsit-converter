@@ -24,8 +24,8 @@ private:
 protected:
     const std::string alphabet = "0123456789ABCDEFGHILMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
     
-    int base = 10;
-    int precision = 6;
+    int64_t base = 10;
+    int64_t precision = 6;
     
 public:
     Numeric ();

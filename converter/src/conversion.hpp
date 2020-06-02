@@ -21,6 +21,12 @@
 #include "xs3.hpp"
 #include "xs3r.hpp"
 #include "ascii.hpp"
+#include "utf8.hpp"
+#include "roman.hpp"
+#include "gray.hpp"
+#include "oneOfN.hpp"
+#include "segment7.hpp"
+#include "fiscal.hpp"
 
 namespace converter {
 
@@ -65,7 +71,13 @@ static const std::map<std::string, Code *> CODES = {
     { "twoOnFive", new TwoOnFive() },
     { "xs3", new Xs3() },
     { "xs3r", new Xs3r() },
-    { "ascii", new Ascii() }
+    { "ascii", new Ascii() },
+    { "utf8", new Utf8() },
+    { "roman", new Roman() },
+    { "gray", new Gray() },
+    { "oneOfN", new OneOfN() },
+    { "7segment", new Segment7() },
+    { "fiscal", new Fiscal() }
 };
 
 } /* converter */
