@@ -66,8 +66,6 @@ void converter::Conversion::setOutputOptions(const std::map<std::string, std::st
     this->outputOptions = outputOptions;
 }
 
-#include <iostream>
-
 std::string converter::Conversion::convert() {
     std::vector<std::string> temp;
 

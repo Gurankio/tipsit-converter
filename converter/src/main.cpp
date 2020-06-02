@@ -8,13 +8,11 @@
 
 #include <iostream>
 
-#include "./conversion.hpp"
-
+#include "conversion.hpp"
 
 #define test(input, inputMod, expectedOutput, outputMod) \
 std::cout << inputMod << " -> " << outputMod << ": " << \
-(converter::Conversion(input, inputMod, {}, outputMod, {}).convert().getOutput() == expectedOutput) << std::endl;
-
+(converter::Conversion(input, inputMod, {}, outputMod, {}).convert() == expectedOutput) << std::endl;
 
 int main(int argc, char const *argv[]) {
     test("-101.987", "numeric", "-0001_0000_0001.1111_1110_1101", "aiken");
@@ -33,9 +31,9 @@ int main(int argc, char const *argv[]) {
     test("-10.987", "numeric", "0000001000000000", "oneOfN");
     test("-101.987", "numeric", "0000001_1011111_1011011", "7segment");
 //  not implemented:  test("-101.987", "numeric", "asd", "fiscal");
-    
+
     std::cout << std::endl;
-    
+
     test("-0001_0000_0001.1111_1110_1101", "aiken", "-101.986999", "numeric");
     test("-0001_0000_0001.1001_1000_0111", "bcd", "-101.986999", "numeric");
     test("-0001_0000_0001.1100_1011_1010", "quinary", "-101.986999", "numeric");
