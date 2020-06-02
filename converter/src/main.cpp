@@ -13,7 +13,7 @@
 
 #define test(input, inputMod, expectedOutput, outputMod) \
 std::cout << inputMod << " -> " << outputMod << ": " << \
-(converter::Conversion(input, inputMod, {}, outputMod, {}).convert().getOutput() == expectedOutput) << std::endl;
+(converter::Conversion(input, inputMod, {}, outputMod, {}).convert() == expectedOutput) << std::endl;
 
 
 int main(int argc, char const *argv[]) {
