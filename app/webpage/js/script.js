@@ -149,12 +149,11 @@ function convert()
 
   console.log(JSON.parse(input_txt));
   
-  if(document.getElementById("hidden-output-type").textContent == "sevenSegment") {
-    createDigits(0.4, ["0010111", "1001111", "0001110", "0001110", "1111110"]);//converter.convert(JSON.parse(input_txt)).split(" "));
-  } else {
+  if(document.getElementById("hidden-output-type").textContent == "segment7") {
+    createDigits(0.4, converter.convert(JSON.parse(input_txt)).split(" "));
+  }
     console.log(converter.convert(JSON.parse(input_txt)));
     document.getElementById("output-value").textContent = converter.convert(JSON.parse(input_txt));
-  }
 }
 
 function swap()
@@ -214,7 +213,7 @@ function inputCheck() {
       var digit_format = '0*10*10*';
       regex = '(?=^[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*(\.[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*)?$)^0*10*('+opt["numberSeparator"]+'0*10*)*(\.0*10*('+opt["numberSeparator"]+'0*10*)*)?$';
       break;
-    case "sevenSegment":
+    case "segment7":
       //    /[01]{7}( [01]{7})*/g
       regex = '^[01]{7}( [01]{7})*$';
       break;
