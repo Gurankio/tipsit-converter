@@ -152,8 +152,9 @@ function convert()
   if(document.getElementById("hidden-output-type").textContent == "segment7") {
     createDigits(0.4, converter.convert(JSON.parse(input_txt)).split("_"));
   }
-  console.log(converter.convert(JSON.parse(input_txt)));
-  document.getElementById("output-value").textContent = converter.convert(JSON.parse(input_txt));
+  var output = converter.convert(JSON.parse(input_txt));
+  if(output != null)
+    document.getElementById("output-value").textContent = output;
 }
 
 function swap()
