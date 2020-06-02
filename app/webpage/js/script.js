@@ -149,33 +149,42 @@ function convert()
 
   console.log(JSON.parse(input_txt));
   
+  if(document.getElementById("p5-canvas").innerHTML != "")
+    document.getElementById("p5-canvas").innerHTML = "";
+
   if(document.getElementById("hidden-output-type").textContent == "segment7") {
     createDigits(0.4, converter.convert(JSON.parse(input_txt)).split("_"));
+  } else {
+    document.getElementById("p5-canvas").innerHTML = "";
   }
+
   var output = converter.convert(JSON.parse(input_txt));
   if(output != null)
     document.getElementById("output-value").textContent = output;
+  
 }
 
 function swap()
 {
-  var temp = document.getElementById("output-value").textContent;
-  document.getElementsByClassName("output-textarea-box")[0].textContent = '';
-  
-  //console.log(temp);
-  if(temp == "")
-    document.getElementById("custom-textarea").value = '';
-  else
-    document.getElementById("custom-textarea").value = temp;
-
-
+  // swapping options
   temp = document.getElementById("hidden-input-div").textContent;
   document.getElementById("hidden-input-div").textContent = document.getElementById("hidden-output-div").textContent;
-  document.getElementById("hidden-output-div").textContent = temp;
+  if(temp != null)
+    document.getElementById("hidden-output-div").textContent = temp;
 
   temp = document.getElementById("hidden-input-type").textContent;
   document.getElementById("hidden-input-type").textContent = document.getElementById("hidden-output-type").textContent;
-  document.getElementById("hidden-output-type").textContent = temp;
+  if(temp != null)
+    document.getElementById("hidden-output-type").textContent = temp;
+
+  // swapping values
+  temp = document.getElementById("output-value").textContent;
+  document.getElementById("output-value").textContent = '';
+  if(temp != null)
+    document.getElementById("custom-textarea").value = temp;
+  
+  if(document.getElementById("p5-canvas").innerHTML != "")
+    document.getElementById("p5-canvas").innerHTML = "";
 }
 
 function inputCheck() {
@@ -193,13 +202,13 @@ function inputCheck() {
       break;
     case "numeric":
       //    /^[0-9]+(\.[0-9]{0,8})?$/g
-      if(opt['base'] < 64)
+      if(opt['base'] <= 64)
         regex = '^-?[-'+alphabet.substr(0, opt['base'])+']+(\\'+opt["decimalSeparator"]+'[-'+alphabet.substr(0, opt['base'])+']{0,'+opt["precision"]+'})?$';
       else return false;
       break;
     case "bcd": case "aiken": case "quinary": case "xs3": case "xs3r": case "grey":
       //    /^([01]{4}( [01]{4})*)+(\.([01]{4}( [01]{4})*))$/g
-      regex = '^-?([01]{4}(' + opt["numberSeparator"] + '[01]{4})*)+(\\' + opt["decimalSeparator"] + '([01]{4}(' + opt["numberSeparator"] + '[01]{4})*))$';
+      regex = '^-?([01]{4}(' + opt["numberSeparator"] + '[01]{4})*)(\\' + opt["decimalSeparator"] + '([01]{4}(' + opt["numberSeparator"] + '[01]{4})*))?$';
       break;
     case "biquinary":
       //    /(?=^[01]{2} [01]{5}( [01]{2} [01]{5})*(\.[01]{2} [01]{5}( [01]{2} [01]{5})*)?$)^0*10* 0*10*( 0*10* 0*10*)*(\.0*10* 0*10*( 0*10* 0*10*)*)?$/g
@@ -221,6 +230,8 @@ function inputCheck() {
       //    /[01]{7}( [01]{7})*/g
       regex = '^[01]{7}(_[01]{7})*$';
       break;
+    default:
+      regex = '.';
   }
   
   r = new RegExp(regex);

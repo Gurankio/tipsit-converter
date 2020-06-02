@@ -72,7 +72,7 @@ static const std::map<std::string, Code *> CODES = {
     { "xs3", new Xs3() },
     { "xs3r", new Xs3r() },
     { "ascii", new Ascii() },
-    { "utf8", new Utf8() },
+    { "utf-8", new Utf8() },
     { "roman", new Roman() },
     { "gray", new Gray() },
     { "oneOfN", new OneOfN() },
