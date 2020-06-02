@@ -5,38 +5,63 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Modal</title>
+    <title>Progetto di consulenza semplice</title>
     <link href="./css/popup.css" rel="stylesheet">
     <link href="./css/main.css" rel="stylesheet">
+    <script src="./js/p5.min.js"></script>
+    <script defer src="./js/animation.js"></script>
     <script defer src="./js/script.js"></script>
   </head>
 
   <body>
-    <div class="page-title">
-      <h1>Progetto TPSIT</h1>
-    </div>
+    <header>
+      <div class="container">
+        <div id="page-title">
+          <h1>
+            <img src="img/logo.png" style="margin-right: 10px;" alt="">Progetto TPSIT
+          </h1>
+        </div>
+        <nav>
+          <ul class="top-level-menu">
+            <li class="current"><a href="main.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <br>
 
     <div class="main-input-box">
-      <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder=""></textarea>
+      <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder="" onchange="inputCheck()"></textarea>
       <div class="button-box">
         <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "input";'>
-          Codifica Input
+          Codifica<br>Input
         </button>
       </div>
     </div>
 
     <div class="central">
       <div>
-        <button class="orange-button" id="normal" onclick="convert()">Converti</button>
-        <button class="orange-button" id="normal" onclick="swap()">Scambia</button>
+        <button class="orange-button" id="normal" onclick="convert()">
+          <img class="invert" src="img/convert.png" alt="">
+          Converti
+        </button>
+        <button class="orange-button" id="normal" onclick="swap()">
+          <img class="invert" src="img/swap.png" alt="">
+          Scambia
+        </button>
       </div>
     </div>
 
     <div class="main-input-box">
-      <div id="custom-textarea" class="output-textarea-box">01001-101-1</div>
+      <div id="custom-textarea" class="output-textarea-box">
+        <div id="output-value"></div>
+        <div id="p5-canvas"></div>
+      </div>
       <div class="button-box">
         <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "output";'>
-          Codifica Output
+          Codifica<br>Output
         </button>
       </div>
     </div>
@@ -59,12 +84,12 @@
               <label for="tab-1" class="tab-label">(Alfa) Numerici</label>
               <div class="tab-content">
                 <ul id="menu">
-                  <li id="roman"><button class="hidden-button" id="roman" onclick="show('roman-options', 'roman')">Romano</button></li>
-                  <li id="base2"><button class="hidden-button" id="base2" onclick="show('base2-options', 'base2')">Base 2</button></li>
+                  <li id="roman"><button class="hidden-button" id="roman" onclick="show('choose-option', 'roman');">Romano</button></li>
+                  <li id="base2"><button class="hidden-button" id="base2" onclick="show('choose-option', 'base2')">Base 2</button></li>
                   <li id="numeric"><button class="hidden-button" id="numerical" onclick="show('basen-options', 'numeric')">Base N</button></li>
-                  <li id="ascii"><button class="hidden-button" id="ascii" onclick="show('ascii-options', 'ascii')">ASCII</button></li>
-                  <li id="exascii"><button class="hidden-button" id="exascii" onclick="show('asciiex-options', 'exascii')">ASCII Esteso</button></li>
-                  <li id="utf-8"><button class="hidden-button" id="utf-8" onclick="show('utf8-options', 'utf-8')">UTF-8</button></li>
+                  <li id="ascii"><button class="hidden-button" id="ascii" onclick="show('choose-option', 'ascii')">ASCII</button></li>
+                  <li id="exascii"><button class="hidden-button" id="exascii" onclick="show('choose-option', 'exascii')">ASCII Esteso</button></li>
+                  <li id="utf-8"><button class="hidden-button" id="utf-8" onclick="show('utf-8-options', 'utf-8')">UTF-8</button></li>
                 </ul>
               </div>
             </div>
@@ -104,9 +129,9 @@
               <label for="tab-4" class="tab-label">Altro</label>
               <div class="tab-content">
                 <ul id="menu">
-                  <li><button class="hidden-button" onclick="">7 Segmenti</button></li>
-                  <li><button class="hidden-button" onclick="">Fiscale</button></li>
-                  <li><button class="hidden-button" onclick="">Operazioni con segno</button></li>
+                  <li id="sevenSegment"><button class="hidden-button" id="sevenSegment" onclick="show('choose-option', 'sevenSegment')">7 Segmenti</button></li>
+                  <li id="fiscalCode"><button class="hidden-button" id="fiscalCode" onclick="show('choose-option', 'codFiscale')">Fiscale</button></li>
+                  <li id="signOperation"><button class="hidden-button" id="signOperation" onclick="show('choose-option', 'signOperation')">Operazioni con segno</button></li>
                 </ul>
               </div>
             </div>
@@ -117,64 +142,25 @@
         <!--  OPTIONS  -->
         <div class="options">
           <div class="options-body">
+
+
+            <!--DEFAULT--> 
+
             <div class="option-tab" id="choose-option">
-              <p class="options-header">Options</p>
+              <p class="options-header">Opzioni</p>
               <p class="option-text">Scegli una delle basi a sinistra</p>
             </div>
 
-            <div class="option-tab" id="roman-options">
-              <p class="options-header">Romano</p>
-              <form id="form" action="">
-                <div class="custom-text-input">
-                  <p class="option-text">Option1</p>
-                  <input type="input" class="option-text-input" placeholder="placeholder" autocomplete="off" onfocus="this.value=''" />
-                </div>
-              </form>
-            </div>
-
-            <div class="option-tab" id="base2-options">
-              <input type="text" placeholder="Write here"><br>
-              <input type="text" placeholder="Write here"><br>
-              <input type="text" placeholder="Write here"><br>
-            </div>
+            <!--
+            Numeric Options
+            - base (default: 10)
+            - decimalSeparator (default: .)
+            - precision (default: 8)
+            -->
 
             <div class="option-tab" id="basen-options">
               <p class="options-header">Base N</p>
               <form id="numeric-form" action="">
-
-                <!--
-                Numeric Options
-                - base (default: 10)
-                - decimalSeparator (default: .)
-                - precision (default: 8)
-              -->
-
-                <div class="custom-text-input">
-                  <p class="option-text">Base</p>
-                  <input id="base" type="input" class="option-text-input" autocomplete="off" placeholder="10" onfocus="this.value=''" />
-                </div>
-                <div class="custom-text-input">
-                  <p class="option-text">Separatore (es 3.14 3,14)</p>
-                  <input id="decimalSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="." onfocus="this.value=''" />
-                </div>
-                <div class="custom-text-input">
-                  <p class="option-text">Precisione</p>
-                  <input id="precision" type="input" class="option-text-input" autocomplete="off" placeholder="8" onfocus="this.value=''" />
-                </div>
-              </form>
-            </div>
-
-            <div class="option-tab" id="ascii-options">
-              <p class="options-header">Base N</p>
-              <form id="numeric-form" action="">
-
-                <!--
-                Ascii Options
-                - base (default: 10)
-                - decimalSeparator (default: .)
-                - precision (default: 8)
-              -->
-
                 <div class="custom-text-input">
                   <p class="option-text">Base</p>
                   <input id="base" type="input" class="option-text-input" autocomplete="off" placeholder="10" onfocus="this.value=''" />
@@ -191,10 +177,25 @@
             </div>
 
             <!--
+              utf8 Options
+              - numberSeparator (default: 10)
+            -->
+
+            <div class="option-tab" id="utf-8-options">
+              <p class="options-header">UTF-8</p>
+              <form id="utf8-form" action="">
+                <div class="custom-text-input">
+                  <p class="option-text">Number Separator</p>
+                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="_" onfocus="this.value=''" />
+                </div>
+              </form>
+            </div>
+
+            <!--
             Weighted Codes Options
             - decimalSeparator (default: .)
             - numberSeparator (default: " " (space))
-          -->
+            -->
 
             <div class="option-tab" id="weighted-options">
               <p class="options-header">Codici Pesati</p>
@@ -217,7 +218,7 @@
             - N (default: 8) ex. 5-> 0010000
             - decimalSeparator (default: .)
             - numberSeparator (default: " " (space))
-          -->
+            -->
 
             <div class="option-tab" id="1onN-options">
               <p class="options-header">1 su N</p>
@@ -243,7 +244,7 @@
             Non Weighted Codes Options
             - decimalSeparator (default: .)
             - numberSeparator (default: " " (space))
-          -->
+            -->
 
             <div class="option-tab" id="non-weighted-options">
               <p class="options-header">Codici Non Pesati</p>
@@ -263,9 +264,20 @@
           </div>
 
           <button class="ok-button" onclick="getData()">
-            Submit
+            Invia
           </button>
         </div>
+
+      </div>
+    </div>
+
+    <div id="resources">
+      <div id="github-link">
+        <img id="github-logo" src="./img/github.png" alt="">
+        <a id="github-link" href="https://github.com/Gurankio/tipsit" target="_blank">Check our GitHub</a>
+      </div>
+      <div id="copyright">
+        &copy 2020, Sushi Squad
       </div>
     </div>
 
