@@ -1,16 +1,12 @@
-module.exports = require('./build/Release/converter.node');
+switch (process.platform) {
+  case "darwin":
+    module.exports = require('./bin/darwin-x64-80/converter.node');
+    break;
 
-// let payload = {
-//   input: "10001101110110",
-//   inputType: "numeric",
-//   inputOptions: {
-//     base: "2"
-//   },
-//   outputType: "numeric",
-//   outputOptions: {
-//     base: "10"
-//   }
-// }
-//
-// let output = testAddon.convert(payload);
-// console.log(output);
+  case "win32":
+    module.exports = require('./bin/win32-x64-80/converter.node');
+    break;
+
+  default:
+    module.exports = require('./build/Release/converter.node');
+}
