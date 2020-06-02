@@ -129,7 +129,7 @@
               <label for="tab-4" class="tab-label">Altro</label>
               <div class="tab-content">
                 <ul id="menu">
-                  <li id="sevenSegment"><button class="hidden-button" id="sevenSegment" onclick="show('choose-option', 'sevenSegment')">7 Segmenti</button></li>
+                  <li id="segment7"><button class="hidden-button" id="segment7" onclick="show('choose-option', 'segment7')">7 Segmenti</button></li>
                   <li id="fiscalCode"><button class="hidden-button" id="fiscalCode" onclick="show('choose-option', 'codFiscale')">Fiscale</button></li>
                   <li id="signOperation"><button class="hidden-button" id="signOperation" onclick="show('choose-option', 'signOperation')">Operazioni con segno</button></li>
                 </ul>
@@ -194,7 +194,7 @@
             <!--
             Weighted Codes Options
             - decimalSeparator (default: .)
-            - numberSeparator (default: " " (space))
+            - numberSeparator (default: "_" (space))
             -->
 
             <div class="option-tab" id="weighted-options">
@@ -203,7 +203,7 @@
 
                 <div class="custom-text-input">
                   <p class="option-text">Separatore cifre</p>
-                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="space" onfocus="this.value=''" />
+                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="_" onfocus="this.value=''" />
                 </div>
                 <div class="custom-text-input">
                   <p class="option-text">Separatore (es 3.14 3,14)</p>
@@ -217,7 +217,7 @@
             1 on N Codes Options
             - N (default: 8) ex. 5-> 0010000
             - decimalSeparator (default: .)
-            - numberSeparator (default: " " (space))
+            - numberSeparator (default: "_" (space))
             -->
 
             <div class="option-tab" id="1onN-options">
@@ -230,7 +230,7 @@
                 </div>
                 <div class="custom-text-input">
                   <p class="option-text">Separatore cifre</p>
-                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="space" onfocus="this.value=''" />
+                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="_" onfocus="this.value=''" />
                 </div>
                 <div class="custom-text-input">
                   <p class="option-text">Separatore (es 3.14 3,14)</p>
@@ -252,7 +252,7 @@
 
                 <div class="custom-text-input">
                   <p class="option-text">Separatore cifre</p>
-                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="space" onfocus="this.value=''" />
+                  <input id="numberSeparator" type="input" class="option-text-input" autocomplete="off" placeholder="_" onfocus="this.value=''" />
                 </div>
                 <div class="custom-text-input">
                   <p class="option-text">Separatore (es 3.14 3,14)</p>

@@ -149,12 +149,11 @@ function convert()
 
   console.log(JSON.parse(input_txt));
   
-  if(document.getElementById("hidden-output-type").textContent == "sevenSegment") {
-    createDigits(0.4, ["0010111", "1001111", "0001110", "0001110", "1111110"]);//converter.convert(JSON.parse(input_txt)).split(" "));
-  } else {
-    console.log(converter.convert(JSON.parse(input_txt)));
-    document.getElementById("output-value").textContent = converter.convert(JSON.parse(input_txt));
+  if(document.getElementById("hidden-output-type").textContent == "segment7") {
+    createDigits(0.4, converter.convert(JSON.parse(input_txt)).split("_"));
   }
+  console.log(converter.convert(JSON.parse(input_txt)));
+  document.getElementById("output-value").textContent = converter.convert(JSON.parse(input_txt));
 }
 
 function swap()
@@ -184,6 +183,7 @@ function inputCheck() {
   let opt = JSON.parse(document.getElementById("hidden-input-div").textContent);
   console.log(opt);
   let regex = ".";
+  let alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@_";
 
   switch(type) {
     case "roman":
@@ -192,31 +192,33 @@ function inputCheck() {
       break;
     case "numeric":
       //    /^[0-9]+(\.[0-9]{0,8})?$/g
-      regex = '^[0-'+(parseInt(opt["base"])-1)+']+(\\'+opt["decimalSeparator"]+'[0-'+(parseInt(opt["base"])-1)+']{0,'+opt["precision"]+'})?$';
+      if(opt['base'] < 64)
+        regex = '^-?[-'+alphabet.substr(0, opt['base'])+']+(\\'+opt["decimalSeparator"]+'[-'+alphabet.substr(0, opt['base'])+']{0,'+opt["precision"]+'})?$';
+      else return false;
       break;
     case "bcd": case "aiken": case "quinary": case "xs3": case "xs3r": case "grey":
       //    /^([01]{4}( [01]{4})*)+(\.([01]{4}( [01]{4})*))$/g
-      regex = '^([01]{4}(' + opt["numberSeparator"] + '[01]{4})*)+(\\' + opt["decimalSeparator"] + '([01]{4}(' + opt["numberSeparator"] + '[01]{4})*))$';
+      regex = '^-?([01]{4}(' + opt["numberSeparator"] + '[01]{4})*)+(\\' + opt["decimalSeparator"] + '([01]{4}(' + opt["numberSeparator"] + '[01]{4})*))$';
       break;
     case "biquinary":
       //    /(?=^[01]{2} [01]{5}( [01]{2} [01]{5})*(\.[01]{2} [01]{5}( [01]{2} [01]{5})*)?$)^0*10* 0*10*( 0*10* 0*10*)*(\.0*10* 0*10*( 0*10* 0*10*)*)?$/g
       var length_format = '[01]{2}' + opt["numberSeparator"] + '[01]{5}';
       var digit_format = '0*10*' + opt["numberSeparator"] + '0*10*';
-      regex = '(?=^'+length_format+'( '+length_format+')*(\.'+length_format+'( '+length_format+')*)?$)^'+digit_format+'( '+digit_format+')*(\.'+digit_format+'( '+digit_format+')*)?$';
+      regex = '^-?(?=^'+length_format+'( '+length_format+')*(\.'+length_format+'( '+length_format+')*)?$)^'+digit_format+'( '+digit_format+')*(\.'+digit_format+'( '+digit_format+')*)?$';
       break;
     case "twoOnFive":
       //    /(?=^[01]{5}( [01]{5})*(\.[01]{5}( [01]{5})*)?$)^0*10*10*( 0*10*10*)*(\.0*10*10*( 0*10*10*)*)?$/g
       var digit_format = '0*10*10*';
-      regex = '(?=^[01]{5}('+opt["numberSeparator"]+'[01]{5})*(\.[01]{5}('+opt["numberSeparator"]+'[01]{5})*)?$)^0*10*10*('+opt["numberSeparator"]+'0*10*10*)*(\.0*10*10*('+opt["numberSeparator"]+'0*10*10*)*)?$';
+      regex = '^-?(?=^[01]{5}('+opt["numberSeparator"]+'[01]{5})*(\.[01]{5}('+opt["numberSeparator"]+'[01]{5})*)?$)^0*10*10*('+opt["numberSeparator"]+'0*10*10*)*(\.0*10*10*('+opt["numberSeparator"]+'0*10*10*)*)?$';
       break;
     case "1onN":
       //    /(?=^[01]{n}( [01]{n})*(\.[01]{n}( [01]{n})*)?$)^0*10*( 0*10*)*(\.0*10*( 0*10*)*)?$/g
       var digit_format = '0*10*10*';
       regex = '(?=^[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*(\.[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*)?$)^0*10*('+opt["numberSeparator"]+'0*10*)*(\.0*10*('+opt["numberSeparator"]+'0*10*)*)?$';
       break;
-    case "sevenSegment":
+    case "segment7":
       //    /[01]{7}( [01]{7})*/g
-      regex = '^[01]{7}( [01]{7})*$';
+      regex = '^[01]{7}(_[01]{7})*$';
       break;
   }
   

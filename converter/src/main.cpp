@@ -13,6 +13,10 @@
 #define test(input, inputMod, expectedOutput, outputMod) \
 std::cout << inputMod << " -> " << outputMod << ": " << \
 (converter::Conversion(input, inputMod, {}, outputMod, {}).convert() == expectedOutput) << std::endl;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4176ee4c893ff85d871ba06e60440991672748e1
 
 int main(int argc, char const *argv[]) {
     test("-101.987", "numeric", "-0001_0000_0001.1111_1110_1101", "aiken");
