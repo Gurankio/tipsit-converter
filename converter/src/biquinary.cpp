@@ -9,7 +9,7 @@
 #include "biquinary.hpp"
 
 std::string converter::Biquinary::from(int64_t base10) {
-    std::string code = "00_00000"; // TODO: remove '_'
+    std::string code = "0000000";
 
     if (base10 >= 5) {
       code[0] = '1';
@@ -20,11 +20,11 @@ std::string converter::Biquinary::from(int64_t base10) {
       code[1] = '1';
     }
 
-    code[7 - base10] = '1';
+    code[7 - base10 - 1] = '1';
     
     return code;
 }
 
 converter::Biquinary::Biquinary () {
-    this->weight = { 0, 5, 0, 4, 3, 2, 1, 0 };
+    this->weight = { 5, 0, 4, 3, 2, 1, 0 };
 }
