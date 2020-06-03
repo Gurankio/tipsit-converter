@@ -24,10 +24,15 @@ std::string converter::Utf8::to(const std::string& code) {
     while (it != code.end() && *it != this->numberSeparator) {
         recoveredBinary.push_back(*it++);
     }
+    if (it != code.end()) it++;
+    if (it != code.end()) it++;
+    if (it != code.end()) it++;
     
     while (it != code.end()) {
         for (int64_t i = 0; i < 6; i++) recoveredBinary.push_back(*it++);
-        it += 3;
+        if (it != code.end()) it++;
+        if (it != code.end()) it++;
+        if (it != code.end()) it++;
     }
     
     int64_t sum = 0;
