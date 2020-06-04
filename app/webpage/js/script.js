@@ -1,7 +1,6 @@
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
 
-var mode = true;
 input_type = "numeric";
 
 openModalButtons.forEach(button => {
@@ -138,7 +137,8 @@ function convert()
   var map = JSON.parse(input_txt);
   console.log(map);
 
-  if(map["inputType"] == "fiscal" || map["outputType"] == "fiscal")
+  // particular cases
+  if(map["inputType"] == "fiscal" || map["outputType"] == "fiscal") {
     if(!(map["inputType"] == "fiscal" && map["outputType"] == "fiscal")){
       document.getElementById("hidden-input-type").textContent = "fiscal";
       document.getElementById("hidden-output-type").textContent = "fiscal";
@@ -146,7 +146,6 @@ function convert()
       map["inputType"] = "fiscal";
       map["outputType"] = "fiscal";
     }
-
     // trimming spaces in input
     var values = map["data"].split(";");
     for(var i = 0; i < values.length; i++) {
@@ -154,11 +153,17 @@ function convert()
     }
     map["data"] = values.join(";");
     console.log(map["data"]);
+  }
     
   if(document.getElementById("p5-canvas").innerHTML != "")
     document.getElementById("p5-canvas").innerHTML = "";
 
-  if(document.getElementById("hidden-output-type").textContent == "segment7") {
+  if(map["inputType"] == "segment7" && map["outputType"] == "segment7") {
+    createDigits(0.4, map["data"].split("_"));
+    document.getElementById("defaultCanvas0").style.display="inline";
+    document.getElementById("output-value").textContent = map["data"];
+    return 0;
+  } else if(map["outputType"] == "segment7") {
     createDigits(0.4, converter.convert(map).split("_"));
     document.getElementById("defaultCanvas0").style.display="inline";
   } else {
@@ -168,7 +173,7 @@ function convert()
   try {
     var output = converter.convert(map);
   } catch (err) {
-    var output = "0";   
+    var output = "NULL";   
   }
   
   if(output != null)
