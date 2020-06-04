@@ -161,7 +161,7 @@ div #body-content ul, ol {
   padding-left: 25px;
 }
 
-a:not(#github-link) {
+div #body-content a{
   text-decoration: none;
   color: #E09D00;
   font-weight: bold;

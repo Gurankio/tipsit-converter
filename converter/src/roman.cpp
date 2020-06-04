@@ -17,7 +17,7 @@ sum += value; \
 lastAdded = value; \
 } else sum -= value;
     
-    double sum = 0;
+    int64_t sum = 0;
     
     std::string codePositive = code;
     size_t negative = codePositive.find('-');
@@ -65,8 +65,6 @@ lastAdded = value; \
     }
         
     std::string base10 = std::to_string(sum * ((negative != std::string::npos) ? -1 : 1));
-    base10.erase(base10.find_last_not_of('0') + 1, std::string::npos);
-    base10.erase(base10.find_last_not_of('.') + 1, std::string::npos);
     return base10;
     
 }
