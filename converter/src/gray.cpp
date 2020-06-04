@@ -14,12 +14,12 @@ std::string converter::Gray::to(const std::string& code) {
     std::string codePositive = code;
     size_t negative = codePositive.find('-');
     if (negative != std::string::npos) codePositive.erase(negative, 1);
-    
+
     int64_t sum = 0;
-    for (int64_t i = 0; i < codePositive.length(); i++) {
+    for (size_t i = 0; i < codePositive.length(); i++) {
         sum += (codePositive[i] - 48) * std::pow(2, codePositive.length() - i - 1);
     }
-    
+
      uint64_t mask = sum >> 1;
      while (mask != 0) {
         sum = sum ^ mask;
@@ -35,7 +35,7 @@ std::string converter::Gray::to(const std::string& code) {
 std::string converter::Gray::from(const std::string& base10) {
     double number = stod(base10);
     int64_t integerPart = std::abs((int64_t)number);
-    
+
     int64_t length = 4, gray = integerPart ^ (integerPart >> 1);
     while (std::ceil(std::log2(gray)) > length) length *= 2;
 
@@ -48,7 +48,7 @@ std::string converter::Gray::from(const std::string& base10) {
             gray -= std::pow(2, i);
         }
     }
-    
+
     if (number < 0) code.insert(code.begin(), '-');
     return code;
 }
