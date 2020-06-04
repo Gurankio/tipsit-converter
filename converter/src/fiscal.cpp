@@ -113,13 +113,14 @@ std::string converter::Fiscal::to(const std::string& code) {
     std::ifstream csv("./ANPR_archivio_comuni_semplice.csv");
 
     std::ostringstream pattern;
-    pattern << "....;" << tokens.at(3) << ";" << tokens.at(4) << "\r";
+    pattern << "....;" << tokens.at(3) << ";" << tokens.at(4);
     std::regex regex(pattern.str(), std::regex::icase);
 
     std::string temp;
     do {
         std::getline(csv, temp);
-        std::cout << "Error: " << strerror(errno) << std::endl;
+        temp.erase(std::remove(temp.begin(), temp.end(), '\r'), temp.end());
+        temp.erase(std::remove(temp.begin(), temp.end(), '\n'), temp.end());
     } while (!csv.eof() && !csv.fail() && !std::regex_match(temp, regex));
 
     if (csv.eof() || csv.fail()) {
