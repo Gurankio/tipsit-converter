@@ -14,6 +14,10 @@ const createWindow = () => {
   // and load the index.html of the app.
   mainWindow.loadFile('webpage/index.html');
 
+  mainWindow.webContents.on('crashed', function() {
+    console.log("crash");
+  })
+
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
 

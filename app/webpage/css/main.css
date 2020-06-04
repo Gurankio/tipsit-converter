@@ -51,42 +51,76 @@ padding-top: 10px;
 padding-left: 50px;
 }
 
-/* Menu **/
+/* Drop down menu **/
 nav .current a {
-color: #E09D00;
-font-weight: bold;
+  color: #E09D00;
+  font-weight: bold;
+}
+
+.third-level-menu {
+  position: absolute;
+  top: 0;
+  left: -150px;
+  width: 150px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.third-level-menu>li {
+  height: 30px;
+  background: #050A30;
+}
+
+.second-level-menu {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 120px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: none;
+}
+
+.second-level-menu>li {
+  position: relative;
+  height: 30px;
+  background: #050A30;
+  font-size: 12px;
 }
 
 .top-level-menu {
-list-style: none;
-padding: 0;
-margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 .top-level-menu>li {
-position: relative;
-float: left;
-height: 30px;
-width: 100px;
-background: #050A30;
-font-size: 16px;
+  position: relative;
+  float: left;
+  height: 30px;
+  width: 100px;
+  background: #050A30;
+  font-size: 16px;
 }
 
 .top-level-menu li:hover>ul {
-display: inline;
+  display: inline;
 }
 
 .top-level-menu a {
-color: #ffffff;
-text-decoration: none;
-text-transform: uppercase;
-padding: 0 0 0 10px;
-display: block;
-line-height: 30px;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+  padding: 0 0 0 10px;
+  display: block;
+  line-height: 30px;
 }
 
 nav a:hover {
-color: #8F6400;
+  color: #8F6400;
 }
 
 /* Buttons and textareas **/
@@ -159,7 +193,7 @@ p.show-input {
 p.choose-input {
   position: relative;
   z-index: 0;
-  margin: 0 15px;
+  margin: 5px 15px;
   top: -10px;
 }
 
@@ -241,4 +275,8 @@ a#github-link:visited {
 div#copyright {
     margin-top: 5px;
     margin-left: 5px;
+}
+
+div#output-value{
+    max-width: 100%;
 }
