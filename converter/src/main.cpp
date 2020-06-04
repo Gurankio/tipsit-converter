@@ -20,7 +20,7 @@ int main(int argc, char const *argv[]) {
     test("-101.987", "numeric", "-0001_0000_0001.1111_1110_1101", "aiken");
     test("-101.987", "numeric", "-0001_0000_0001.1001_1000_0111", "bcd");
     test("-101.987", "numeric", "-0001_0000_0001.1100_1011_1010", "quinary");
-    test("-101.987", "numeric", "-01 00010_01-00001_01-00010.10-10000_10-01000_10-00100", "biquinary");
+    test("-101.987", "numeric", "-0100010_0100001_0100010.1010000_1001000_1000100", "biquinary");
     test("-101.987", "numeric", "-00011_00110_00011.11000_10100_10010", "twoOnFive");
     test("-101.987", "numeric", "-0100_0011_0100.1100_1011_1010", "xs3");
     test("-101.987", "numeric", "-0110_0010_0110.1010_1110_1111", "xs3r");
@@ -28,6 +28,7 @@ int main(int argc, char const *argv[]) {
     test("49", "numeric", "1", "ascii");
     test("-101.987", "numeric", "01100101", "utf8");
     test("8364", "numeric", "11100010_10000010_10101100", "utf8");
+    test("16", "numeric", "00010000", "utf8");
     test("-101.987", "numeric", "-CI", "roman");
     test("-101.987", "numeric", "-01010111", "gray");
     test("-10.987", "numeric", "0000001000000000", "oneOfN");
@@ -49,7 +50,6 @@ int main(int argc, char const *argv[]) {
     test("-01010111", "gray", "-101", "numeric");
     test("0000001000000000", "oneOfN", "10", "numeric");
     test("0000001_1011111_1011011", "segment7", "-101", "numeric");
-    //  not implemented:  test("-101.987", "numeric", "asd", "fiscal");
     
     std::cout << std::endl;
     

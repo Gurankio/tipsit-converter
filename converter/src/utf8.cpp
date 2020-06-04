@@ -48,12 +48,12 @@ std::string converter::Utf8::to(const std::string& code) {
 
 std::string converter::Utf8::from(const std::string& base10) {
     int64_t number = abs(stoll(base10));
-    int64_t numberBits = ceil(log2(number));
+    int64_t numberBits = floor(log2(number)) + 1;
     if (numberBits > 31) numberBits = 31;
     
     std::string binaryNumber = "";
     for (int64_t i = 0; i < numberBits; i++) binaryNumber.push_back('0');
-    for (int64_t i = numberBits; i >= 0; i--) {
+    for (int64_t i = numberBits - 1; i >= 0; i--) {
         if (number >= std::pow(2, i)) {
             binaryNumber[numberBits - i - 1] = '1';
             number -= std::pow(2, i);
