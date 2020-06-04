@@ -149,25 +149,33 @@ function convert()
   const converter = require("converter");
 
   var map = JSON.parse(input_txt);
+  console.log(map);
+
   if(map["inputType"] == "fiscal" || map["outputType"] == "fiscal")
     if(!(map["inputType"] == "fiscal" && map["outputType"] == "fiscal")){
       alert("Wait! That's illegal");
       return -1;
+    } else {
+      // trimming spaces in input
+      var values = map["data"].split(";");
+      for(var i = 0; i < values.length; i++) {
+        values[i] = values[i].trim();
+      }
+      map["data"] = values.join(";");
+      console.log(map["data"]);
     }
-
-  console.log(JSON.parse(input_txt));
-  
+    
   if(document.getElementById("p5-canvas").innerHTML != "")
     document.getElementById("p5-canvas").innerHTML = "";
 
   if(document.getElementById("hidden-output-type").textContent == "segment7") {
-    createDigits(0.4, converter.convert(JSON.parse(input_txt)).split("_"));
+    createDigits(0.4, converter.convert(map).split("_"));
   } else {
     document.getElementById("p5-canvas").innerHTML = "";
   }
 
   try {
-    var output = converter.convert(JSON.parse(input_txt));
+    var output = converter.convert(map);
   } catch (err) {
     var output = "0";   
   }
