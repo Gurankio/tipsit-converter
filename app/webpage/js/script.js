@@ -1,6 +1,5 @@
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
-const popup = document.getElementById("modal");
 input_type = "numeric";
 
 openModalButtons.forEach(button => {
@@ -121,6 +120,8 @@ function getData() {
     document.getElementById("hidden-output-type").textContent = input_type;
     document.getElementById("hidden-output-div").textContent = JSON.stringify(options);
   }
+
+  closeModal(modal);
 }
 
 function convert()

@@ -121,13 +121,13 @@ std::string converter::Fiscal::to(const std::string& code) {
     }
 
     std::ostringstream pattern;
-    pattern << "....;" << tokens.at(3) << ";" << tokens.at(4) << "\r";
+    pattern << "....;" << tokens.at(3) << ";" << tokens.at(4);
     std::regex regex(pattern.str(), std::regex::icase);
 
     std::string temp;
-    csv >> temp;
     do {
         std::getline(csv, temp);
+        //temp.erase(temp.begin()+temp.find('\r'));
         temp.erase(std::remove(temp.begin(), temp.end(), '\r'), temp.end());
         temp.erase(std::remove(temp.begin(), temp.end(), '\n'), temp.end());
     } while (!csv.eof() && !csv.fail() && !std::regex_match(temp, regex));
