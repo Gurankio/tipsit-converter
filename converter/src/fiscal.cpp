@@ -128,6 +128,8 @@ std::string converter::Fiscal::to(const std::string& code) {
     csv >> temp;
     do {
         std::getline(csv, temp);
+        temp.erase(std::remove(temp.begin(), temp.end(), '\r'), temp.end());
+        temp.erase(std::remove(temp.begin(), temp.end(), '\n'), temp.end());
     } while (!csv.eof() && !csv.fail() && !std::regex_match(temp, regex));
 
     if (csv.eof() || csv.fail()) {
