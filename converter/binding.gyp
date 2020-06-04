@@ -35,12 +35,10 @@
             "src/segment7.hpp",
             "src/xs3.hpp",
             "src/biquinary.cpp",
-            "src/fiscale.cpp",
             "src/oneOfN.cpp",
             "src/twoOnFive.cpp",
             "src/xs3r.cpp",
             "src/biquinary.hpp",
-            "src/fiscale.hpp",
             "src/oneOfN.hpp",
             "src/twoOnFive.hpp",
             "src/xs3r.hpp"
