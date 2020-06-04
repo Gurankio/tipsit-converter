@@ -30,6 +30,10 @@ int main(int argc, char const *argv[]) {
     test("8364", "numeric", "11100010_10000010_10101100", "utf8");
     test("16", "numeric", "00010000", "utf8");
     test("-101.987", "numeric", "-CI", "roman");
+    test("-105", "numeric", "-CV", "roman");
+    test("-106", "numeric", "-CVI", "roman");
+    test("-107", "numeric", "-CVII", "roman");
+    test("-108", "numeric", "-CVIII", "roman");
     test("-101.987", "numeric", "-01010111", "gray");
     test("-10.987", "numeric", "0000001000000000", "oneOfN");
     test("-101.987", "numeric", "0000001_1011111_1011011", "segment7");
@@ -58,6 +62,6 @@ int main(int argc, char const *argv[]) {
 
     std::cout << "Fiscale Test:" << std::endl;
     std::cout << converter::Conversion("Jacopo;Del Granchio;M;Bagno A Ripoli;FI;14.04.2003", "fiscal", {}, "fiscal", {}).convert() << std::endl;
-    
+        
     return 0;
 }

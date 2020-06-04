@@ -121,7 +121,7 @@ std::string converter::Roman::from(const std::string& base10) {
         case 6:
         case 5:
             code.push_back('L');
-            for (int64_t i = 0; i < hundreds - 5; i++) code.push_back('X');
+            for (int64_t i = 0; i < tens - 5; i++) code.push_back('X');
             break;
             
         case 3: code.push_back('X');
@@ -144,7 +144,7 @@ std::string converter::Roman::from(const std::string& base10) {
         case 6:
         case 5:
             code.push_back('V');
-            for (int64_t i = 0; i < hundreds - 5; i++) code.push_back('I');
+            for (int64_t i = 0; i < units - 5; i++) code.push_back('I');
             break;
             
         case 3: code.push_back('I');
