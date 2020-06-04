@@ -11,6 +11,7 @@
 #include <sstream>
 #include <fstream>
 #include <regex>
+#include <iostream>
 
 std::vector<std::string> converter::Fiscal::to(const std::vector<std::string>& code) {
     std::string temp = "";
@@ -107,14 +108,8 @@ std::string converter::Fiscal::to(const std::string& code) {
     std::string day(tokens.at(5).begin(), tokens.at(5).begin() + 3);
     int actualDay = std::stoi(day) + isFemale * 40;
     result.append(std::to_string(actualDay));
-    
-    // Luogo + Provincia  i = 3, 4
-    std::ofstream afile("filename.txt", std::ios::out);
-    if (afile.is_open()) {
-      afile << "This is a line.\n";
-      afile.close();
-    }
 
+    // Luogo + Provincia  i = 3, 4
     std::ifstream csv("./ANPR_archivio_comuni_semplice.csv");
 
     std::ostringstream pattern;
@@ -122,9 +117,9 @@ std::string converter::Fiscal::to(const std::string& code) {
     std::regex regex(pattern.str(), std::regex::icase);
 
     std::string temp;
-    csv >> temp;
     do {
         std::getline(csv, temp);
+        std::cout << temp << std::endl;
     } while (!csv.eof() && !csv.fail() && !std::regex_match(temp, regex));
 
     if (csv.eof() || csv.fail()) {
