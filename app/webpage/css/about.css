@@ -161,14 +161,14 @@ div #body-content ul, ol {
   padding-left: 25px;
 }
 
-a {
+a:not(#github-link) {
   text-decoration: none;
   color: #E09D00;
   font-weight: bold;
 }
 
 /* Footer */
-div#github-link {
+div#github-link{
   height: 2em;
   width: 10.5em;
 }
@@ -180,6 +180,7 @@ img#github-logo {
 }
 
 a#github-link {
+  color: white;
   float: right;
   margin-top: 8px;
   text-decoration: none;
@@ -194,18 +195,14 @@ a#github-link:visited {
   margin-left: 20px;
   color: white;
   font-family: Arial, Helvetica, sans-serif;
+  size: 10px;
+  font-weight: 100;
 }
 
 div#copyright {
   margin-top: 5px;
   margin-left: 5px;
-}
-
-a.anchor {
-  display: block;
-  position: relative;
-  top: -100px;
-  visibility: hidden;
+  height: 30px;
 }
 
 div#dummy-id {
