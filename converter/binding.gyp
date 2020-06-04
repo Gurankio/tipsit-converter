@@ -4,6 +4,7 @@
         "cflags!": [ "-fno-exceptions" ],
         "cflags_cc!": [ "-fno-exceptions" ],
         "sources": [
+            "src/ANPR_archivio_comuni_semplice.csv",
             "src/aiken.cpp",
             "src/code.cpp",
             "src/gray.cpp",
