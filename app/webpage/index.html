@@ -18,13 +18,46 @@
       <div class="container">
         <div id="page-title">
           <h1>
-            <a href="http://www.itistulliobuzzi.it/buzziwebsite/home/index.asp" target="_blank"><img src="img/logo.png" style="margin-right: 10px;" alt=""></a>Progetto TPSIT
+            <img src="img/logo.png" style="margin-right: 10px;" alt="">Progetto TPSIT
           </h1>
         </div>
         <nav>
           <ul class="top-level-menu">
-            <li class="current"><a href="main.html">Home</a></li>
-            <li><a href="about.html">About</a></li>
+            <li class="current"><a href="index.html">Home</a></li>
+            <li>
+              <a href="about.html">About</a>
+              <ul class="second-level-menu">
+                <li><a href="#">Alfa-num</a>
+                  <ul class="third-level-menu">
+                    <li><a href="https://it.wikipedia.org/wiki/Sistema_di_numerazione_romano" target="_blank">Romano</a></li>
+                    <li><a href="https://it.wikipedia.org/wiki/Sistema_di_numerazione_posizionale" target="_blank">Base N</a></li>
+                    <li><a href="https://it.wikipedia.org/wiki/ASCII#:~:text=ASCII%20" target="_blank">ASCII</a></li>
+                    <li><a href="https://it.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Pesati</a>
+                  <ul class="third-level-menu">
+                    <li><a href="http://nicolemanuele.altervista.org/codice-bcd/" target="_blank">BCD</a></li>
+                    <li><a href="http://nicolemanuele.altervista.org/codice-bcd/" target="_blank">Aiken</a></li>
+                    <li><a href="http://nicolemanuele.altervista.org/quinario-e-biquinario/" target="_blank">Quinario</a></li>
+                    <li><a href="http://nicolemanuele.altervista.org/quinario-e-biquinario/" target="_blank">Biquinario</a></li>
+                    <li><a href="https://www.codiceabarre.it/bc255barre.htm" target="_blank">2 su 5</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Non pesati</a>
+                  <ul class="third-level-menu">
+                    <li><a href="http://www.abaservice.eu/scuola/APPUNTI%20LE%20FORME%20DI%20COMUNICAZIONE/Le%20forme%20di%20comunicazione/elettronica/elettronica%20terzo%20anno/CODICE_BCD_ECCESSO_3.htm" target="_blank">Eccesso 3</a></li>
+                    <li><a href="https://it.wikipedia.org/wiki/Codice_Gray" target="_blank">Gray</a></li>
+                  </ul>
+                </li>
+                <li><a href="#">Altro</a>
+                  <ul class="third-level-menu">
+                    <li><a href="https://it.wikipedia.org/wiki/Display_a_sette_segmenti" target="_blank">7 segmenti</a></li>
+                    <li><a href="https://it.wikipedia.org/wiki/Codice_fiscale" target="_blank">Codice fiscale</a></li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
           </ul>
         </nav>
       </div>
@@ -130,7 +163,7 @@
               <div class="tab-content">
                 <ul id="menu">
                   <li id="segment7"><button class="hidden-button" id="segment7" onclick="show('choose-option', 'segment7')">7 Segmenti</button></li>
-                  <li id="fiscalCode"><button class="hidden-button" id="fiscalCode" onclick="show('choose-option', 'fiscalCode')">Fiscale</button></li>
+                  <li id="fiscal"><button class="hidden-button" id="fiscal" onclick="show('choose-option', 'fiscal')">Fiscale</button></li>
                 </ul>
               </div>
             </div>

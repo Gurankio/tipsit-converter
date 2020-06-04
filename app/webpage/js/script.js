@@ -149,11 +149,11 @@ function convert()
   const converter = require("converter");
 
   var map = JSON.parse(input_txt);
-  if(map["inputType"] == "fiscalCode" || map["outputType"] == "fiscalCode")
-    if(!(map["inputType"] == "fiscalCode" && map["outputType"] == "fiscalCode")){
+  if(map["inputType"] == "fiscal" || map["outputType"] == "fiscal")
+    if(!(map["inputType"] == "fiscal" && map["outputType"] == "fiscal")){
       alert("Wait! That's illegal");
       return -1;
-    };
+    }
 
   console.log(JSON.parse(input_txt));
   
@@ -239,8 +239,8 @@ function inputCheck() {
       //    /[01]{7}( [01]{7})*/g
       regex = '^[01]{7}(_[01]{7})*$';
       break;
-    case "fiscalCode":
-      regex = '^[\w ]+;[\w ]+;[MF];[\w ]+;\w{2};\d{2}.\d{2}.\d{4}$';
+    case "fiscal":
+      regex = '^[\\w ]+;[\\w ]+;[MF];[\\w ]+;\\w{2};\\d{2}.\\d{2}.\\d{4}$';
       break;
     default:
       regex = '.';
