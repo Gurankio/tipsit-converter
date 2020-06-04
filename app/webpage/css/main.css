@@ -224,3 +224,7 @@ div#copyright {
     margin-top: 5px;
     margin-left: 5px;
 }
+
+div#output-value{
+    max-width: 100%;
+}

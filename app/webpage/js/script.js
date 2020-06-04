@@ -158,7 +158,12 @@ function convert()
     document.getElementById("p5-canvas").innerHTML = "";
   }
 
-  var output = converter.convert(JSON.parse(input_txt));
+  try {
+    var output = converter.convert(JSON.parse(input_txt));
+  } catch (err) {
+    var output = "0";   
+  }
+  
   if(output != null)
     document.getElementById("output-value").textContent = output;
   
@@ -202,29 +207,27 @@ function inputCheck() {
       break;
     case "numeric":
       //    /^[0-9]+(\.[0-9]{0,8})?$/g
-      if(opt['base'] <= 64)
-        regex = '^-?[-'+alphabet.substr(0, opt['base'])+']+(\\'+opt["decimalSeparator"]+'[-'+alphabet.substr(0, opt['base'])+']{0,'+opt["precision"]+'})?$';
-      else return false;
+      regex = '^-?[ '+alphabet.substr(0, opt['base'])+']+(\\'+opt["decimalSeparator"][0]+'[ '+alphabet.substr(0, opt['base'])+']{0,'+opt["precision"]+'})?$';;
       break;
     case "bcd": case "aiken": case "quinary": case "xs3": case "xs3r": case "grey":
       //    /^([01]{4}( [01]{4})*)+(\.([01]{4}( [01]{4})*))$/g
-      regex = '^-?([01]{4}(' + opt["numberSeparator"] + '[01]{4})*)(\\' + opt["decimalSeparator"] + '([01]{4}(' + opt["numberSeparator"] + '[01]{4})*))?$';
+      regex = '^-?([01]{4}(' + opt["numberSeparator"][0] + '[01]{4})* ?)+(\\' + opt["decimalSeparator"][0] + '([01]{4}(' + opt["numberSeparator"][0] + '[01]{4})* ?)+)?$';
       break;
     case "biquinary":
       //    /(?=^[01]{2} [01]{5}( [01]{2} [01]{5})*(\.[01]{2} [01]{5}( [01]{2} [01]{5})*)?$)^0*10* 0*10*( 0*10* 0*10*)*(\.0*10* 0*10*( 0*10* 0*10*)*)?$/g
-      var length_format = '[01]{2}' + opt["numberSeparator"] + '[01]{5}';
-      var digit_format = '0*10*' + opt["numberSeparator"] + '0*10*';
-      regex = '^-?(?=^'+length_format+'( '+length_format+')*(\.'+length_format+'( '+length_format+')*)?$)^'+digit_format+'( '+digit_format+')*(\.'+digit_format+'( '+digit_format+')*)?$';
+      var length_format = '[01]{2}-[01]{5}';
+      var digit_format = '0*10*10*';
+      regex = '^-?(?=^'+length_format+'('+opt["numberSeparator"][0]+length_format+')*(\.'+length_format+'( '+length_format+')*)?$)^'+digit_format+'( '+digit_format+')*(\.'+digit_format+'( '+digit_format+')*)?$';
       break;
     case "twoOnFive":
       //    /(?=^[01]{5}( [01]{5})*(\.[01]{5}( [01]{5})*)?$)^0*10*10*( 0*10*10*)*(\.0*10*10*( 0*10*10*)*)?$/g
       var digit_format = '0*10*10*';
-      regex = '^-?(?=^[01]{5}('+opt["numberSeparator"]+'[01]{5})*(\.[01]{5}('+opt["numberSeparator"]+'[01]{5})*)?$)^0*10*10*('+opt["numberSeparator"]+'0*10*10*)*(\.0*10*10*('+opt["numberSeparator"]+'0*10*10*)*)?$';
+      regex = '^-?(?=^[01]{5}('+opt["numberSeparator"][0]+'[01]{5})*(\.[01]{5}('+opt["numberSeparator"][0]+'[01]{5})*)?$)^0*10*10*('+opt["numberSeparator"][0]+'0*10*10*)*(\.0*10*10*('+opt["numberSeparator"][0]+'0*10*10*)*)?$';
       break;
     case "1onN":
       //    /(?=^[01]{n}( [01]{n})*(\.[01]{n}( [01]{n})*)?$)^0*10*( 0*10*)*(\.0*10*( 0*10*)*)?$/g
       var digit_format = '0*10*10*';
-      regex = '(?=^[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*(\.[01]{'+opt["n"]+'}('+opt["numberSeparator"]+'[01]{'+opt["n"]+'})*)?$)^0*10*('+opt["numberSeparator"]+'0*10*)*(\.0*10*('+opt["numberSeparator"]+'0*10*)*)?$';
+      regex = '(?=^[01]{'+opt["n"]+'}('+opt["numberSeparator"][0]+'[01]{'+opt["n"]+'})*(\.[01]{'+opt["n"]+'}('+opt["numberSeparator"][0]+'[01]{'+opt["n"]+'})*)?$)^0*10*('+opt["numberSeparator"][0]+'0*10*)*(\.0*10*('+opt["numberSeparator"][0]+'0*10*)*)?$';
       break;
     case "segment7":
       //    /[01]{7}( [01]{7})*/g
@@ -234,7 +237,10 @@ function inputCheck() {
       regex = '.';
   }
   
-  r = new RegExp(regex);
+  if(type=="numeric" && opt["base"] <= 36)
+    r = new RegExp(regex, "i");
+  else
+    r = new RegExp(regex);
 
   console.log(r);
   if(!r.test(data)) {
@@ -247,6 +253,22 @@ function inputCheck() {
     return true;
   }  
 }
+
+var map = {
+  romano:"Romano",
+  numeric:"Base N",
+
+}
+
+inputDiv = document.getElementById("hidden-input-type");
+inputDiv.addEventListener('DOMSubtreeModified', function(){
+  console.log(inputDiv.textContent);
+});
+
+outputDiv = document.getElementById("hidden-output-type");
+outputDiv.addEventListener('DOMSubtreeModified', function(){
+  console.log(outputDiv.textContent);
+});
 
 /* Esempio JSON
 
