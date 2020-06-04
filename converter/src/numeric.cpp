@@ -18,8 +18,8 @@ std::string converter::Numeric::to(const std::string& code) {
     size_t negative = codePositive.find('-');
     if (negative != std::string::npos) codePositive.erase(negative, 1);
     
-    // If base is less then 34 make all uppercase.
-    if (this->base < 34) for (auto it = codePositive.begin(); it != codePositive.end(); it++) *it = toupper(*it);
+    // If base is less then 36 make all uppercase.
+    if (this->base < 36) for (auto it = codePositive.begin(); it != codePositive.end(); it++) *it = toupper(*it);
     
     size_t dot = codePositive.length();
     for (size_t i = 0; i < codePositive.length(); i++)

@@ -20,6 +20,12 @@ const createWindow = () => {
 
   // Open the DevTools.
   mainWindow.webContents.openDevTools();
+
+  // Auto Restart
+  mainWindow.webContents.on('crashed', (e) => {
+    app.relaunch();
+    app.quit()
+  });
 };
 
 // This method will be called when Electron has finished
