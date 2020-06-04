@@ -24,37 +24,18 @@
             <li class="current">
               <a href="about.html">About</a>
               <ul class="second-level-menu">
-                <li><a href="#">Alfa-num</a>
+                <li><a href="#struttura">STRUTTURA</a>
                   <ul class="third-level-menu">
-                    <li><a href="https://it.wikipedia.org/wiki/Sistema_di_numerazione_romano" target="_blank">Romano</a></li>
-                    <li><a href="https://it.wikipedia.org/wiki/Sistema_di_numerazione_posizionale" target="_blank">Base N</a></li>
-                    <li><a href="https://it.wikipedia.org/wiki/ASCII#:~:text=ASCII%20" target="_blank">ASCII</a></li>
-                    <li><a href="https://it.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a></li>
+                    <li><a href="#analisi" target="_blank">Analisi</a></li>
+                    <li><a href="#progettazione">Progettazione</a></li>
+                    <li><a href="#codifica">Codifica</a></li>
                   </ul>
                 </li>
-                <li><a href="#">Pesati</a>
-                  <ul class="third-level-menu">
-                    <li><a href="http://nicolemanuele.altervista.org/codice-bcd/" target="_blank">BCD</a></li>
-                    <li><a href="http://nicolemanuele.altervista.org/codice-bcd/" target="_blank">Aiken</a></li>
-                    <li><a href="http://nicolemanuele.altervista.org/quinario-e-biquinario/" target="_blank">Quinario</a></li>
-                    <li><a href="http://nicolemanuele.altervista.org/quinario-e-biquinario/" target="_blank">Biquinario</a></li>
-                    <li><a href="https://www.codiceabarre.it/bc255barre.htm" target="_blank">2 su 5</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">Non pesati</a>
-                  <ul class="third-level-menu">
-                    <li><a href="http://www.abaservice.eu/scuola/APPUNTI%20LE%20FORME%20DI%20COMUNICAZIONE/Le%20forme%20di%20comunicazione/elettronica/elettronica%20terzo%20anno/CODICE_BCD_ECCESSO_3.htm" target="_blank">Eccesso 3</a></li>
-                    <li><a href="https://it.wikipedia.org/wiki/Codice_Gray" target="_blank">Gray</a></li>
-                  </ul>
-                </li>
-                <li><a href="#altro">Altro</a>
-                  <ul class="third-level-menu">
-                    <li><a href="https://it.wikipedia.org/wiki/Display_a_sette_segmenti" target="_blank">7 segmenti</a></li>
-                    <li><a href="https://it.wikipedia.org/wiki/Codice_fiscale" target="_blank">Codice fiscale</a></li>
-                  </ul>
-                </li>
+                <li><a href="#glossario">GLOSSARIO</a></li>
               </ul>
             </li>
+          </ul>
+          </li>
           </ul>
         </nav>
       </div>
@@ -63,17 +44,90 @@
     <div class="content">
       <h1 id="firstHeading">MANUALE</h1>
       <div id="body-content">
-        <h2>INTRODUZIONE</h2>
-        <h3>Scopo</h3>
+
+        <a class="anchor" id="struttura"></a>
+        <h2>STRUTTURA</h2>
+
+        <a class="anchor" id="analisi"></a>
+        <h3>Analisi</h3>
         <p>
-          L'obbiettivo principale del progetto condotto da "Sushi Squad" è la creazione di uno strumento che permetta la conversione fra i vari codici appresi durante il corso di "Tecnologie e progettazione di sistemi informatici di
-          telecomunicazioni".
+          L'obiettivo principale del progetto condotto da "Sushi Squad" è la creazione di uno strumento che permetta la conversione fra i vari codici appresi durante il corso di "Tecnologie e Progettazione di Sistemi Informatici di
+          Telecomunicazioni".
         </p>
+
+        <a class="anchor" id="progettazione"></a>
+        <h3>Progettazione</h3>
+        <p>
+          Per massimizzare la compatibilità tra i vari codici abbiamo scelto di usare una base comune (base 10), ove possibile, e di effettuare il passaggio dei valori attraverso stringhe.
+        </p>
+        <p>
+          Codici implementati:
+        <ul>
+          <li>Codici alfanumerici
+            <ul>
+              <li><a href="https://it.wikipedia.org/wiki/Sistema_di_numerazione_romano" target="_blank">Romano</a></li>
+              <li><a href="https://it.wikipedia.org/wiki/Sistema_di_numerazione_posizionale" target="_blank">Base N</a></li>
+              <li><a href="https://it.wikipedia.org/wiki/ASCII#:~:text=ASCII%20" target="_blank">ASCII</a></li>
+              <li><a href="https://it.wikipedia.org/wiki/UTF-8" target="_blank">UTF-8</a></li>
+            </ul>
+          </li>
+          <li>Codici pesati
+            <ul>
+              <li><a href="http://nicolemanuele.altervista.org/codice-bcd/" target="_blank">BCD</a></li>
+              <li><a href="http://nicolemanuele.altervista.org/codice-bcd/" target="_blank">Aiken</a></li>
+              <li><a href="http://nicolemanuele.altervista.org/quinario-e-biquinario/" target="_blank">Quinario</a></li>
+              <li><a href="http://nicolemanuele.altervista.org/quinario-e-biquinario/" target="_blank">Biquinario</a></li>
+              <li><a href="https://www.codiceabarre.it/bc255barre.htm" target="_blank">2 su 5</a></li>
+            </ul>
+          </li>
+          <li>Codici non pesati
+            <ul>
+              <li><a href="http://www.abaservice.eu/scuola/APPUNTI%20LE%20FORME%20DI%20COMUNICAZIONE/Le%20forme%20di%20comunicazione/elettronica/elettronica%20terzo%20anno/CODICE_BCD_ECCESSO_3.htm" target="_blank">Eccesso 3</a></li>
+              <li><a href="https://it.wikipedia.org/wiki/Codice_Gray" target="_blank">Gray</a></li>
+              <li><a href="#">Eccesso 3 Riflesso</a></li>
+              <li><a href="#">1 su N</a></li>
+            </ul>
+
+          </li>
+          <li>Altro
+            <ul>
+              <li><a href="https://it.wikipedia.org/wiki/Display_a_sette_segmenti" target="_blank">7 segmenti</a></li>
+              <li><a href="https://it.wikipedia.org/wiki/Codice_fiscale" target="_blank">Codice fiscale</a></li>
+            </ul>
+          </li>
+        </ul>
+        </li>
+        </ul>
+        </p>
+
+        <a class="anchor" id="codifica"></a>
+        <h3>Codifica</h3>
+        <p>
+          Il programma è stato diviso in due parti principali:
+        <ul>
+          <li>
+            La parte backend contenente gli algoritmi effettivi programmati in C++
+          </li>
+          <li>
+            La parte frontend riguardante l’interfaccia grafica scritta in HTML e CSS
+          </li>
+        </ul>
+        <p>
+          Infine, come “colla”, per permettere la comunicazione tra le due parti è stato utilizzato
+          <a href="#glossario">JavaScript</a>.
+          Ciò è stato possibile grazie al framework <a href="#glossario">Electron</a>, che ha permesso di creare moduli operativi da codice sorgente in C++, richiamabili da <a href="#glossario">JavaScript</a>.
+          Per controllare gli input ed effettuare il parsing delle stringhe sono state usate <a href="#glossario">espressioni regolari</a> (RegEx).
+          Infine, per l’implementazione del codice a 7 segmenti è stato usata la libreria di <a href="#glossario">p5.js</a> che grazie a semplici comandi <a href="#glossario">JavaScript</a> ha permesso la creazione del canvas.
+        </p>
+
+        </p>
+        <a class="anchor" id="glossario"></a>
         <h2>GLOSSARIO</h2>
         <p>
         <ul>
           <li>
-            <a href="https://it.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>, abbreviato js, è un linguaggio di programmazione orientato agli oggetti e agli eventi, comunemente utilizzato nella programmazione Web lato client (esteso poi
+            <a href="https://it.wikipedia.org/wiki/JavaScript" target="_blank">JavaScript</a>, abbreviato js, è un linguaggio di programmazione orientato agli oggetti e agli eventi, comunemente utilizzato nella programmazione Web lato client (esteso
+            poi
             anche al lato server) per la creazione, in siti web e applicazioni web, di effetti dinamici interattivi tramite funzioni di script invocate da eventi innescati a loro volta in vari modi dall'utente sulla pagina web in uso (mouse,
             tastiera, caricamento della pagina ecc...).
           </li>
@@ -91,7 +145,7 @@
           </li>
 
           <li>
-            <a href="https://it.wikipedia.org/wiki/Electron_(framework)" target="_blank">Regex</a>, o espressione regolare, è una sequenza di simboli (quindi una stringa) che identifica un insieme di stringhe.
+            <a href="https://it.wikipedia.org/wiki/Electron_(framework)" target="_blank">Espressione regolare</a>, o regex, è una sequenza di simboli (quindi una stringa) che identifica un insieme di stringhe.
           </li>
 
           <li>
@@ -101,6 +155,11 @@
         </p>
       </div>
     </div>
+    <div id="resources">
+      <div id="github-link">
+        <img id="github-logo" src="./img/github.png" alt="">
+        <a id="github-link" href="https://github.com/Gurankio/tipsit" target="_blank">Check our GitHub</a>
+      </div>
       <div id="copyright">
         &copy 2020, Sushi Squad
       </div>
