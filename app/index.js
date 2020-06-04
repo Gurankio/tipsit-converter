@@ -18,9 +18,6 @@ const createWindow = () => {
     console.log("crash");
   })
 
-  // Open the DevTools.
-  mainWindow.webContents.openDevTools();
-
   // Auto Restart
   mainWindow.webContents.on('crashed', (e) => {
     app.relaunch();

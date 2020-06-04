@@ -1,6 +1,5 @@
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
-const overlay = document.getElementById('overlay')
 
 var mode = true;
 input_type = "numeric";
@@ -14,13 +13,6 @@ openModalButtons.forEach(button => {
   })
 })
 
-overlay.addEventListener('click', () => {
-  const modals = document.querySelectorAll('.modal.active')
-  modals.forEach(modal => {
-    closeModal(modal)
-  })
-})
-
 closeModalButtons.forEach(button => {
   button.addEventListener('click', () => {
     const modal = button.closest('.modal')
@@ -31,8 +23,6 @@ closeModalButtons.forEach(button => {
 function openModal(modal) {
   if (modal == null) return
   modal.classList.add('active')
-  overlay.classList.add('active')
-
   show('choose-option', 'numeric');
 }
 
@@ -40,8 +30,6 @@ function closeModal(modal) {
   reset()
   if (modal == null) return
   modal.classList.remove('active')
-  overlay.classList.remove('active')
-
   setTimeout(() => {show('choose-option');}, 250);
 }
 
@@ -115,7 +103,6 @@ function getData() {
     document.getElementById("hidden-output-type").textContent = input_type;
     document.getElementById("hidden-output-div").textContent = JSON.stringify(options);
   }
-  alert("Opzioni caricate");
 }
 
 function convert()
@@ -123,7 +110,7 @@ function convert()
   var input_txt = '{"data":';
   
   if(!inputCheck()) {
-    alert("Malformed input!");
+    document.getElementById("output-value").textContent = "Malformed input!";
     return -1;
   }
 
@@ -149,25 +136,37 @@ function convert()
   const converter = require("converter");
 
   var map = JSON.parse(input_txt);
+  console.log(map);
+
   if(map["inputType"] == "fiscal" || map["outputType"] == "fiscal")
     if(!(map["inputType"] == "fiscal" && map["outputType"] == "fiscal")){
-      alert("Wait! That's illegal");
-      return -1;
+      document.getElementById("hidden-input-type").textContent = "fiscal";
+      document.getElementById("hidden-output-type").textContent = "fiscal";
+      document.getElementById("hidden-output-div").textContent = "{}";
+      map["inputType"] = "fiscal";
+      map["outputType"] = "fiscal";
     }
 
-  console.log(JSON.parse(input_txt));
-  
+    // trimming spaces in input
+    var values = map["data"].split(";");
+    for(var i = 0; i < values.length; i++) {
+      values[i] = values[i].trim();
+    }
+    map["data"] = values.join(";");
+    console.log(map["data"]);
+    
   if(document.getElementById("p5-canvas").innerHTML != "")
     document.getElementById("p5-canvas").innerHTML = "";
 
   if(document.getElementById("hidden-output-type").textContent == "segment7") {
-    createDigits(0.4, converter.convert(JSON.parse(input_txt)).split("_"));
+    createDigits(0.4, converter.convert(map).split("_"));
+    document.getElementById("defaultCanvas0").style.display="inline";
   } else {
     document.getElementById("p5-canvas").innerHTML = "";
   }
 
   try {
-    var output = converter.convert(JSON.parse(input_txt));
+    var output = converter.convert(map);
   } catch (err) {
     var output = "0";   
   }
@@ -211,7 +210,7 @@ function inputCheck() {
   switch(type) {
     case "roman":
       //    /^[ivxlcdmIVXLCDM]$/g
-      regex = '^[ivxlcdmIVXLCDM]+$';
+      regex = '^[ivxlcdmIVXLCDM ]+$';
       break;
     case "numeric":
       //    /^[0-9]+(\.[0-9]{0,8})?$/g
@@ -263,9 +262,28 @@ function inputCheck() {
   }  
 }
 
+var placeholders = {
+  roman: "XXIII",
+  numeric: "101.34",
+  ascii: "ciao mondo",
+  utf8: "11100010_10000010_10101100",
+  bcd: "-0001_0000_0001.1001_1000_0111",
+  aiken: "-0001_0000_0001.1111_1110_1101",
+  quinary: "-0001_0000_0001.1100_1011_1010",
+  biquinary: "-0100010_0100001_0100010.1010000_1001000_1000100",
+  twoOnFive: "-00011_00110_00011.11000_10100_10010",
+  xs3: "-0100_0011_0100.1100_1011_1010",
+  gray: "-01010111",
+  xs3r: "-0110_0010_0110.1010_1110_1111",
+  oneOfN: "0000001000000000",
+  segment7: "0000001_1011111_1011011",
+  fiscal: "Mario;Rossi;M;Capracotta;IS;04.02.1969",
+}
+
 inputDiv = document.getElementById("hidden-input-type");
 inputDiv.addEventListener('DOMSubtreeModified', function(){
   document.getElementById("input-type").textContent = document.querySelectorAll("button#"+inputDiv.textContent)[0].textContent;
+  document.getElementById("custom-textarea").placeholder = placeholders[inputDiv.textContent];
 });
 
 outputDiv = document.getElementById("hidden-output-type");
