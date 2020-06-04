@@ -3,7 +3,7 @@ const closeModalButtons = document.querySelectorAll('[data-close-button]')
 const overlay = document.getElementById('overlay')
 
 var mode = true;
-input_type = "numerical";
+input_type = "numeric";
 
 openModalButtons.forEach(button => {
 
@@ -33,7 +33,7 @@ function openModal(modal) {
   modal.classList.add('active')
   overlay.classList.add('active')
 
-  show('choose-option', 'numerical');
+  show('choose-option', 'numeric');
 }
 
 function closeModal(modal) {
@@ -48,10 +48,10 @@ function closeModal(modal) {
 function show(value, type){
 
   if(typeof input_type == "undefined" || typeof input_type == "null") {
-    input_type = "numerical"; 
+    input_type = "numeric"; 
   }
   if(typeof type == "undefined" || typeof type == "null") {
-    type = "numerical"; 
+    type = "numeric"; 
   }
 
   console.log(input_type+"->"+type);
@@ -129,8 +129,8 @@ function convert()
 
   console.log(document.getElementById("custom-textarea").value);
 
+  /** GETTING DATA */
   input_txt += '"' + document.getElementById("custom-textarea").value  + '"' + ', ';
-
   input_txt += '"inputType": "' + document.getElementById("hidden-input-type").textContent + '", ';
 
   if(document.getElementById("hidden-input-div").textContent == "")
@@ -145,7 +145,15 @@ function convert()
   else
     input_txt += '"outputOptions":' + document.getElementById("hidden-output-div").textContent + '}';
 
+  //   CONVERTER MODULE
   const converter = require("converter");
+
+  var map = JSON.parse(input_txt);
+  if(map["inputType"] == "fiscalCode" || map["outputType"] == "fiscalCode")
+    if(!(map["inputType"] == "fiscalCode" && map["outputType"] == "fiscalCode")){
+      alert("Wait! That's illegal");
+      return -1;
+    };
 
   console.log(JSON.parse(input_txt));
   
@@ -215,23 +223,24 @@ function inputCheck() {
       break;
     case "biquinary":
       //    /(?=^[01]{2} [01]{5}( [01]{2} [01]{5})*(\.[01]{2} [01]{5}( [01]{2} [01]{5})*)?$)^0*10* 0*10*( 0*10* 0*10*)*(\.0*10* 0*10*( 0*10* 0*10*)*)?$/g
-      var length_format = '[01]{2}-[01]{5}';
-      var digit_format = '0*10*10*';
-      regex = '^-?(?=^'+length_format+'('+opt["numberSeparator"][0]+length_format+')*(\.'+length_format+'( '+length_format+')*)?$)^'+digit_format+'( '+digit_format+')*(\.'+digit_format+'( '+digit_format+')*)?$';
+      var digit_format = '0?1{1}0*10*';
+      regex = '(?=^-?[01]{7}('+opt["numberSeparator"][0]+'[01]{7})*(\.[01]{7}('+opt["numberSeparator"][0]+'[01]{7})*)?$)^-?'+digit_format+'('+opt["numberSeparator"][0]+digit_format+')*(\.'+digit_format+'('+opt["numberSeparator"][0]+digit_format+')*)?$';
       break;
     case "twoOnFive":
       //    /(?=^[01]{5}( [01]{5})*(\.[01]{5}( [01]{5})*)?$)^0*10*10*( 0*10*10*)*(\.0*10*10*( 0*10*10*)*)?$/g
       var digit_format = '0*10*10*';
       regex = '^-?(?=^[01]{5}('+opt["numberSeparator"][0]+'[01]{5})*(\.[01]{5}('+opt["numberSeparator"][0]+'[01]{5})*)?$)^0*10*10*('+opt["numberSeparator"][0]+'0*10*10*)*(\.0*10*10*('+opt["numberSeparator"][0]+'0*10*10*)*)?$';
       break;
-    case "1onN":
+    case "oneOfN":
       //    /(?=^[01]{n}( [01]{n})*(\.[01]{n}( [01]{n})*)?$)^0*10*( 0*10*)*(\.0*10*( 0*10*)*)?$/g
-      var digit_format = '0*10*10*';
       regex = '(?=^[01]{'+opt["n"]+'}('+opt["numberSeparator"][0]+'[01]{'+opt["n"]+'})*(\.[01]{'+opt["n"]+'}('+opt["numberSeparator"][0]+'[01]{'+opt["n"]+'})*)?$)^0*10*('+opt["numberSeparator"][0]+'0*10*)*(\.0*10*('+opt["numberSeparator"][0]+'0*10*)*)?$';
       break;
     case "segment7":
       //    /[01]{7}( [01]{7})*/g
       regex = '^[01]{7}(_[01]{7})*$';
+      break;
+    case "fiscalCode":
+      regex = '^[\w ]+;[\w ]+;[MF];[\w ]+;\w{2};\d{2}.\d{2}.\d{4}$';
       break;
     default:
       regex = '.';
@@ -254,20 +263,14 @@ function inputCheck() {
   }  
 }
 
-var map = {
-  romano:"Romano",
-  numeric:"Base N",
-
-}
-
 inputDiv = document.getElementById("hidden-input-type");
 inputDiv.addEventListener('DOMSubtreeModified', function(){
-  console.log(inputDiv.textContent);
+  document.getElementById("input-type").textContent = document.querySelectorAll("button#"+inputDiv.textContent)[0].textContent;
 });
 
 outputDiv = document.getElementById("hidden-output-type");
 outputDiv.addEventListener('DOMSubtreeModified', function(){
-  console.log(outputDiv.textContent);
+  document.getElementById("output-type").textContent = document.querySelectorAll("button#"+outputDiv.textContent)[0].textContent;
 });
 
 /* Esempio JSON

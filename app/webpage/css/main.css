@@ -159,7 +159,7 @@ p.show-input {
 p.choose-input {
   position: relative;
   z-index: 0;
-  margin: 0 15px;
+  margin: 5px 15px;
   top: -10px;
 }
 

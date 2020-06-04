@@ -36,7 +36,7 @@
       <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder="" onchange="inputCheck()"></textarea>
       <div class="button-box">
         <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "input";'>
-          <p class="show-input">Numeric</p>
+          <p class="show-input" id="input-type">Base N</p>
           <p class="choose-input">Codifica Input</p>
         </button>
       </div>
@@ -62,7 +62,7 @@
       </div>
       <div class="button-box">
         <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "output";'>
-          <p class="show-input">Numeric</p>
+          <p class="show-input" id="output-type">Base N</p>
           <p class="choose-input">Codifica Output</p>
         </button>
       </div>
@@ -87,7 +87,7 @@
               <div class="tab-content">
                 <ul id="menu">
                   <li id="roman"><button class="hidden-button" id="roman" onclick="show('choose-option', 'roman');">Romano</button></li>
-                  <li id="numeric"><button class="hidden-button" id="numerical" onclick="show('basen-options', 'numeric')">Base N</button></li>
+                  <li id="numeric"><button class="hidden-button" id="numeric" onclick="show('basen-options', 'numeric')">Base N</button></li>
                   <li id="ascii"><button class="hidden-button" id="ascii" onclick="show('choose-option', 'ascii')">ASCII</button></li>
                   <li id="utf-8"><button class="hidden-button" id="utf-8" onclick="show('utf-8-options', 'utf-8')">UTF-8</button></li>
                 </ul>
@@ -118,7 +118,7 @@
                   <li id="xs3"><button class="hidden-button" id="xs3" onclick="show('non-weighted-options', 'xs3')">Eccesso 3</button></li>
                   <li id="gray"><button class="hidden-button" id="gray" onclick="show('non-weighted-options', 'gray')">Gray</button></li>
                   <li id="xs3r"><button class="hidden-button" id="xs3r" onclick="show('non-weighted-options', 'xs3r')">Eccesso 3 riflesso</button></li>
-                  <li id="1onN"><button class="hidden-button" id="1onN" onclick="show('1onN-options', '1onN')">1 su n</button></li>
+                  <li id="1onN"><button class="hidden-button" id="oneOfN" onclick="show('oneOfN-options', 'oneOfN')">1 su N</button></li>
                 </ul>
               </div>
             </div>
@@ -130,7 +130,7 @@
               <div class="tab-content">
                 <ul id="menu">
                   <li id="segment7"><button class="hidden-button" id="segment7" onclick="show('choose-option', 'segment7')">7 Segmenti</button></li>
-                  <li id="fiscalCode"><button class="hidden-button" id="fiscalCode" onclick="show('choose-option', 'codFiscale')">Fiscale</button></li>
+                  <li id="fiscalCode"><button class="hidden-button" id="fiscalCode" onclick="show('choose-option', 'fiscalCode')">Fiscale</button></li>
                 </ul>
               </div>
             </div>
@@ -219,9 +219,9 @@
             - numberSeparator (default: "_" )
             -->
 
-            <div class="option-tab" id="1onN-options">
+            <div class="option-tab" id="oneOfN-options">
               <p class="options-header">1 su N</p>
-              <form id="numeric-form" action="">
+              <form id="oneOfN-form" action="">
 
                 <div class="custom-text-input">
                   <p class="option-text">N</p>
