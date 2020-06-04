@@ -17,6 +17,7 @@ B'dazzled Blue = #235789
   border: 1px solid #050A30;
   border-radius: 5px;
   z-index: 10;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
   background-color: white;
   width: 75%;
   max-width: 1000px;

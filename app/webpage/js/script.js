@@ -1,6 +1,6 @@
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
-
+const popup = document.getElementById("modal");
 input_type = "numeric";
 
 openModalButtons.forEach(button => {
@@ -18,6 +18,25 @@ closeModalButtons.forEach(button => {
     closeModal(modal)
   })
 })
+
+document.addEventListener("keyup", function keyPressed(event) {
+
+  if(document.getElementById("modal").classList.contains('active')) {
+    switch(event.key){
+      case "Escape": 
+        console.log("escape");
+        event.preventDefault();
+        closeModal(modal);
+        break;
+      case "Enter":
+        console.log("return");
+        getData();
+        event.preventDefault();
+        closeModal(modal);
+        break;
+    } 
+  }
+});
 
 function openModal(modal) {
   if (modal == null) return
@@ -107,6 +126,9 @@ function getData() {
 function convert()
 {  
   var input_txt = '{"data":';
+
+  if(document.getElementById("p5-canvas").innerHTML != "")
+    document.getElementById("p5-canvas").innerHTML = "";
   
   if(!inputCheck()) {
     document.getElementById("output-value").textContent = "Malformed input!";
@@ -154,9 +176,6 @@ function convert()
     map["data"] = values.join(";");
     console.log(map["data"]);
   }
-    
-  if(document.getElementById("p5-canvas").innerHTML != "")
-    document.getElementById("p5-canvas").innerHTML = "";
 
   if(map["inputType"] == "segment7" && map["outputType"] == "segment7") {
     createDigits(0.4, map["data"].split("_"));
@@ -281,7 +300,7 @@ var placeholders = {
   gray: "-01010111",
   xs3r: "-0110_0010_0110.1010_1110_1111",
   oneOfN: "0000001000000000",
-  segment7: "0000001_1011111_1011011",
+  segment7: "0010111_1001111_0001110_0001110_1111110",
   fiscal: "Mario;Rossi;M;Capracotta;IS;04.02.1969",
 }
 

@@ -45,42 +45,57 @@
     </header>
 
     <br>
+    <div id="main-page">
 
-    <div class="main-input-box">
-      <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder="101.34" onchange="inputCheck()"></textarea>
-      <div class="button-box">
-        <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "input";'>
-          <p class="show-input" id="input-type">Base N</p>
-          <p class="choose-input">Codifica Input</p>
-        </button>
+      <div class="main-input-box">
+        <textarea type="input" id="custom-textarea" class="input-textarea-box" placeholder="101.34" onchange="inputCheck()"></textarea>
+        <div class="button-box">
+          <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "input";'>
+            <p class="show-input" id="input-type">Base N</p>
+            <p class="choose-input">Codifica Input</p>
+          </button>
+        </div>
       </div>
+  
+      <div class="central">
+        <div>
+          <button class="orange-button" id="normal" onclick="convert()">
+            <img class="invert" src="img/convert.png" alt="">
+            Converti
+          </button>
+          <button class="orange-button" id="normal" onclick="swap()">
+            <img class="invert" src="img/swap.png" alt="">
+            Scambia
+          </button>
+        </div>
+      </div>
+  
+      <div class="main-input-box">
+        <div id="custom-textarea" class="output-textarea-box">
+          <div id="output-div"><p id="output-value"></p></div>
+          <div id="p5-canvas"></div>
+        </div>
+        <div class="button-box">
+          <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "output";'>
+            <p class="show-input" id="output-type">Base N</p>
+            <p class="choose-input">Codifica Output</p>
+          </button>
+        </div>
+      </div>
+
+      <div id="resources">
+        <div id="github-link">
+          <img id="github-logo" src="./img/github.png" alt="">
+          <a id="github-link" href="https://github.com/Gurankio/tipsit" target="_blank">Check our GitHub</a>
+        </div>
+        <div id="copyright">
+          &copy 2020, Sushi Squad
+        </div>
+      </div>
+
     </div>
 
-    <div class="central">
-      <div>
-        <button class="orange-button" id="normal" onclick="convert()">
-          <img class="invert" src="img/convert.png" alt="">
-          Converti
-        </button>
-        <button class="orange-button" id="normal" onclick="swap()">
-          <img class="invert" src="img/swap.png" alt="">
-          Scambia
-        </button>
-      </div>
-    </div>
-
-    <div class="main-input-box">
-      <div id="custom-textarea" class="output-textarea-box">
-        <div id="output-div"><p id="output-value"></p></div>
-        <div id="p5-canvas"></div>
-      </div>
-      <div class="button-box">
-        <button data-modal-target="#modal" class="orange-button" id="choose-convertion" onclick='document.getElementById("input-output").textContent = "output";'>
-          <p class="show-input" id="output-type">Base N</p>
-          <p class="choose-input">Codifica Output</p>
-        </button>
-      </div>
-    </div>
+    
 
     <!-- POPUP -->
     <div class="modal" id="modal">
@@ -281,16 +296,6 @@
           </button>
         </div>
 
-      </div>
-    </div>
-
-    <div id="resources">
-      <div id="github-link">
-        <img id="github-logo" src="./img/github.png" alt="">
-        <a id="github-link" href="https://github.com/Gurankio/tipsit" target="_blank">Check our GitHub</a>
-      </div>
-      <div id="copyright">
-        &copy 2020, Sushi Squad
       </div>
     </div>
 
