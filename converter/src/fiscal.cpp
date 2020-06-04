@@ -111,7 +111,16 @@ std::string converter::Fiscal::to(const std::string& code) {
     result.append(std::to_string(actualDay));
 
     // Luogo + Provincia  i = 3, 4
+    std::ofstream afile("./filename.txt", std::ios::out);
+    if (afile.is_open()) {
+      afile << "This is a line.\n";
+      afile.close();
+    }
+
     std::ifstream csv("./ANPR_archivio_comuni_semplice.csv");
+    if (!csv.is_open()) {
+        return "Missing file.";
+    }
 
     std::ostringstream pattern;
     pattern << "....;" << tokens.at(3) << ";" << tokens.at(4);
