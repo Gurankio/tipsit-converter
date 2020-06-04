@@ -15,6 +15,7 @@ namespace converter {
 
 class Fiscal : public Code {
 private:
+    std::vector<std::string> to(const std::vector<std::string>& code);
     std::string to(const std::string& code);
     
     std::string from(const std::string& base10);
