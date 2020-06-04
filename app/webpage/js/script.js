@@ -1,6 +1,5 @@
 const openModalButtons = document.querySelectorAll('[data-modal-target]')
 const closeModalButtons = document.querySelectorAll('[data-close-button]')
-const overlay = document.getElementById('overlay')
 
 var mode = true;
 input_type = "numeric";
@@ -14,13 +13,6 @@ openModalButtons.forEach(button => {
   })
 })
 
-overlay.addEventListener('click', () => {
-  const modals = document.querySelectorAll('.modal.active')
-  modals.forEach(modal => {
-    closeModal(modal)
-  })
-})
-
 closeModalButtons.forEach(button => {
   button.addEventListener('click', () => {
     const modal = button.closest('.modal')
@@ -31,8 +23,6 @@ closeModalButtons.forEach(button => {
 function openModal(modal) {
   if (modal == null) return
   modal.classList.add('active')
-  overlay.classList.add('active')
-
   show('choose-option', 'numeric');
 }
 
@@ -40,8 +30,6 @@ function closeModal(modal) {
   reset()
   if (modal == null) return
   modal.classList.remove('active')
-  overlay.classList.remove('active')
-
   setTimeout(() => {show('choose-option');}, 250);
 }
 
@@ -115,7 +103,6 @@ function getData() {
     document.getElementById("hidden-output-type").textContent = input_type;
     document.getElementById("hidden-output-div").textContent = JSON.stringify(options);
   }
-  alert("Opzioni caricate");
 }
 
 function convert()
@@ -123,7 +110,7 @@ function convert()
   var input_txt = '{"data":';
   
   if(!inputCheck()) {
-    alert("Malformed input!");
+    document.getElementById("output-value").textContent = "Malformed input!";
     return -1;
   }
 
@@ -153,23 +140,27 @@ function convert()
 
   if(map["inputType"] == "fiscal" || map["outputType"] == "fiscal")
     if(!(map["inputType"] == "fiscal" && map["outputType"] == "fiscal")){
-      alert("Wait! That's illegal");
-      return -1;
-    } else {
-      // trimming spaces in input
-      var values = map["data"].split(";");
-      for(var i = 0; i < values.length; i++) {
-        values[i] = values[i].trim();
-      }
-      map["data"] = values.join(";");
-      console.log(map["data"]);
+      document.getElementById("hidden-input-type").textContent = "fiscal";
+      document.getElementById("hidden-output-type").textContent = "fiscal";
+      document.getElementById("hidden-output-div").textContent = "{}";
+      map["inputType"] = "fiscal";
+      map["outputType"] = "fiscal";
     }
+
+    // trimming spaces in input
+    var values = map["data"].split(";");
+    for(var i = 0; i < values.length; i++) {
+      values[i] = values[i].trim();
+    }
+    map["data"] = values.join(";");
+    console.log(map["data"]);
     
   if(document.getElementById("p5-canvas").innerHTML != "")
     document.getElementById("p5-canvas").innerHTML = "";
 
   if(document.getElementById("hidden-output-type").textContent == "segment7") {
     createDigits(0.4, converter.convert(map).split("_"));
+    document.getElementById("defaultCanvas0").style.display="inline";
   } else {
     document.getElementById("p5-canvas").innerHTML = "";
   }
@@ -219,7 +210,7 @@ function inputCheck() {
   switch(type) {
     case "roman":
       //    /^[ivxlcdmIVXLCDM]$/g
-      regex = '^[ivxlcdmIVXLCDM]+$';
+      regex = '^[ivxlcdmIVXLCDM ]+$';
       break;
     case "numeric":
       //    /^[0-9]+(\.[0-9]{0,8})?$/g
