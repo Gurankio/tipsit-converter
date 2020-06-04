@@ -256,6 +256,7 @@ img#github-logo {
 }
 
 a#github-link {
+    color: white;
     float: right;
     margin-top: 8px;
     text-decoration: none;

@@ -271,9 +271,28 @@ function inputCheck() {
   }  
 }
 
+var placeholders = {
+  roman: "XXIII",
+  numeric: "101.34",
+  ascii: "ciao mondo",
+  utf8: "11100010_10000010_10101100",
+  bcd: "-0001_0000_0001.1001_1000_0111",
+  aiken: "-0001_0000_0001.1111_1110_1101",
+  quinary: "-0001_0000_0001.1100_1011_1010",
+  biquinary: "-0100010_0100001_0100010.1010000_1001000_1000100",
+  twoOnFive: "-00011_00110_00011.11000_10100_10010",
+  xs3: "-0100_0011_0100.1100_1011_1010",
+  gray: "-01010111",
+  xs3r: "-0110_0010_0110.1010_1110_1111",
+  oneOfN: "0000001000000000",
+  segment7: "0000001_1011111_1011011",
+  fiscal: "Mario;Rossi;M;Capracotta;IS;04.02.1969",
+}
+
 inputDiv = document.getElementById("hidden-input-type");
 inputDiv.addEventListener('DOMSubtreeModified', function(){
   document.getElementById("input-type").textContent = document.querySelectorAll("button#"+inputDiv.textContent)[0].textContent;
+  document.getElementById("custom-textarea").placeholder = placeholders[inputDiv.textContent];
 });
 
 outputDiv = document.getElementById("hidden-output-type");
