@@ -114,12 +114,12 @@ std::string converter::Fiscal::to(const std::string& code) {
 
     std::ostringstream pattern;
     pattern << "....;" << tokens.at(3) << ";" << tokens.at(4) << "\r";
-    std::cout << pattern.str() << std::endl;
     std::regex regex(pattern.str(), std::regex::icase);
 
     std::string temp;
     do {
         std::getline(csv, temp);
+        std::cout << "Error: " << strerror(errno) << std::endl;
     } while (!csv.eof() && !csv.fail() && !std::regex_match(temp, regex));
 
     if (csv.eof() || csv.fail()) {
