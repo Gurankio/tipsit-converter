@@ -113,7 +113,7 @@ std::string converter::Fiscal::to(const std::string& code) {
     std::ifstream csv("./ANPR_archivio_comuni_semplice.csv");
 
     std::ostringstream pattern;
-    pattern << "....;" << tokens.at(3) << ";" << tokens.at(4) << "\r";
+    pattern << "....;" << tokens.at(3) << ";" << tokens.at(4);
     std::regex regex(pattern.str(), std::regex::icase);
 
     std::string temp;
