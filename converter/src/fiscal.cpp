@@ -23,21 +23,21 @@ std::vector<std::string> converter::Fiscal::to(const std::vector<std::string>& c
 
 std::string converter::Fiscal::to(const std::string& code) {
     std::vector<std::string> tokens;
-    
+
     std::string input = code;
     for (auto it = input.begin(); it != input.end(); it++) {
         *it = std::toupper(*it);
     }
-    
+
     size_t pos;
     while ((pos = input.find(";")) != std::string::npos) { // TODO: make ',' a variable.
         tokens.push_back( input.substr(0, pos));
         input.erase(0, pos + 1);
     }
     tokens.push_back(input.substr(0, pos));
-    
+
     std::string result = "";
-    
+
     // Cognome  i=1
     if (tokens.at(1).length() < 3) {
         result.append(tokens.at(1));
@@ -51,7 +51,7 @@ std::string converter::Fiscal::to(const std::string& code) {
             if (*it != 'A' && *it != 'E' && *it != 'I' && *it != 'O' && *it != 'U') consonant.push_back(*it);
             else vowels.push_back(*it);
         }
-        
+
         if (consonant.size() >= 3) {
             result.push_back(consonant.at(0));
             result.push_back(consonant.at(1));
@@ -62,7 +62,7 @@ std::string converter::Fiscal::to(const std::string& code) {
             result.push_back(vowels.at(0));
         }
     }
-    
+
     // Nome  i=0
     if (tokens.at(0).length() < 3) {
         result.append(tokens.at(0));
@@ -76,7 +76,7 @@ std::string converter::Fiscal::to(const std::string& code) {
             if (*it != 'A' && *it != 'E' && *it != 'I' && *it != 'O' && *it != 'U') consonant.push_back(*it);
             else vowels.push_back(*it);
         }
-        
+
         if (consonant.size() >= 4) {
             result.push_back(consonant.at(0));
             result.push_back(consonant.at(2));
@@ -91,47 +91,53 @@ std::string converter::Fiscal::to(const std::string& code) {
             result.push_back(vowels.at(0));
         }
     }
-    
+
     // Data + Sesso  i=2, i=5
     std::string year(tokens.at(5).end() - 3, tokens.at(5).end() - 1);
     result.append(year);
-    
+
     const char monthAlphabet[] = "ABCDEHLMPRST";
     auto firstDot = tokens.at(5).find_first_of('.');
     auto lastDot = tokens.at(5).find_last_of('.');
     std::string month(tokens.at(5).begin() + firstDot + 1, tokens.at(5).begin() + lastDot);
     int monthIndex = std::stoi(month) - 1;
     result.push_back(monthAlphabet[monthIndex]);
-    
+
     bool isFemale = (tokens.at(2).at(0) == 'F');
     std::string day(tokens.at(5).begin(), tokens.at(5).begin() + 3);
     int actualDay = std::stoi(day) + isFemale * 40;
     result.append(std::to_string(actualDay));
     
     // Luogo + Provincia  i = 3, 4
+    std::ofstream afile("filename.txt", std::ios::out);
+    if (afile.is_open()) {
+      afile << "This is a line.\n";
+      afile.close();
+    }
+
     std::ifstream csv("./ANPR_archivio_comuni_semplice.csv");
-    
+
     std::ostringstream pattern;
     pattern << "....;" << tokens.at(3) << ";" << tokens.at(4) << "\r";
     std::regex regex(pattern.str(), std::regex::icase);
-    
+
     std::string temp;
     csv >> temp;
     do {
         std::getline(csv, temp);
     } while (!csv.eof() && !csv.fail() && !std::regex_match(temp, regex));
-    
+
     if (csv.eof() || csv.fail()) {
         return "Luogo di nascita e sigla provincia non validi.";
     }
-    
+
     std::string catastale(temp.begin(), temp.begin() + 4);
     csv.close();
-    
+
     result.append(catastale);
-    
+
     // Carattere Controllo
-    
+
     std::map<char, int64_t> pari = {
         {'0', 1},
         {'1', 0},
@@ -209,7 +215,7 @@ std::string converter::Fiscal::to(const std::string& code) {
         {'Z', 25}
     };
     const char resto[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    
+
     int64_t sum = 0;
     for (size_t i = 0; i < result.length(); i++) {
         if (i % 2) sum += dispari.at(result[i]);
@@ -217,7 +223,7 @@ std::string converter::Fiscal::to(const std::string& code) {
     }
     sum %= 26;
     result.push_back(resto[sum]);
-    
+
     return result;
 }
 
