@@ -13,14 +13,10 @@
 
 #define test(input, inputMod, expectedOutput, outputMod) \
 std::cout << inputMod << " -> " << outputMod << ": " << \
-converter::Conversion(input, inputMod, {}, outputMod, {}).convert() << std::endl;
+(converter::Conversion(input, inputMod, {}, outputMod, {}).convert() == expectedOutput)  << std::endl;
 
 
 int main(int argc, char const *argv[]) {
-    test("-101.987", "numeric", "-101.986999", "numeric");
-    
-    std::cout << std::endl;
-    
     test("-101.987", "numeric", "-0001_0000_0001.1111_1110_1101", "aiken");
     test("-101.987", "numeric", "-0001_0000_0001.1001_1000_0111", "bcd");
     test("-101.987", "numeric", "-0001_0000_0001.1100_1011_1010", "quinary");
@@ -48,12 +44,18 @@ int main(int argc, char const *argv[]) {
     test("-0100_0011_0100.1100_1011_1010", "xs3", "-101.986999", "numeric");
     test("-0110_0010_0110.1010_1110_1111", "xs3r", "-101.986999", "numeric");
     test("1", "ascii", "49", "numeric");
-    test("01100101", "utf8", "101", "numeric");
+    test("11100010_10011101_10110101", "utf8", "10101", "numeric");
+    test("01101001", "utf8", "105", "numeric");
     test("-CI", "roman", "-101", "numeric");
     test("-01010111", "gray", "-101", "numeric");
     test("0000001000000000", "oneOfN", "10", "numeric");
     test("0000001_1011111_1011011", "segment7", "-101", "numeric");
     //  not implemented:  test("-101.987", "numeric", "asd", "fiscal");
     
+    std::cout << std::endl;
+    
+    std::cout << "case check 1: " << (converter::Conversion("20af", "numeric", {{"base", "16"}}, "numeric", {}).convert() == converter::Conversion("20AF", "numeric", {{"base", "16"}}, "numeric", {}).convert()) << std::endl;
+    std::cout << "case check 2: " << (converter::Conversion("20az", "numeric", {{"base", "16"}}, "numeric", {}).convert() == converter::Conversion("20AZ", "numeric", {{"base", "16"}}, "numeric", {}).convert()) << std::endl;
+
     return 0;
 }

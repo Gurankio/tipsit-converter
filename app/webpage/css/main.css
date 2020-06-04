@@ -145,6 +145,24 @@ height: 8em;
 width: 12em;
 }
 
+p.show-input {
+  position: relative;
+  z-index: 10;
+  margin: 0 5px;
+  padding: 5px 0;
+  color: #fff;
+  background-color: #B88100;
+  border-radius: 5px;
+  top: -30px;
+}
+
+p.choose-input {
+  position: relative;
+  z-index: 0;
+  margin: 0 15px;
+  top: -10px;
+}
+
 .main-output {
 width: 100%;
 height: 40%;

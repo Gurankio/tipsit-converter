@@ -8,9 +8,9 @@
 
 #include "numeric.hpp"
 
+#include <algorithm>
 #include <cmath>
 
-// TODO: check alphabet bounds (ie: base 16 => max 16 chars), if base is less then 34 make all uppercase.
 std::string converter::Numeric::to(const std::string& code) {
     double sum = 0;
 
@@ -18,13 +18,16 @@ std::string converter::Numeric::to(const std::string& code) {
     size_t negative = codePositive.find('-');
     if (negative != std::string::npos) codePositive.erase(negative, 1);
     
+    // If base is less then 34 make all uppercase.
+    if (this->base < 34) for (auto it = codePositive.begin(); it != codePositive.end(); it++) *it = toupper(*it);
+    
     size_t dot = codePositive.length();
     for (size_t i = 0; i < codePositive.length(); i++)
         if (codePositive[i] == this->decimalSeparator) dot = i;
     
-    size_t value;
     for (size_t i = 0; i < codePositive.length(); i++) {
-        if ((value = this->alphabet.find(codePositive[i])) != std::string::npos) sum += value * std::pow(this->base, (signed)(dot - i - (i <= dot)));
+        auto value = std::find(this->alphabet.begin(), this->alphabet.begin() + this->base, codePositive[i]);
+        sum += std::distance(this->alphabet.begin(), value != this->alphabet.begin() + this->base ? value : this->alphabet.begin()) * std::pow(this->base, (signed)(dot - i - (i <= dot)));
     }
     
     std::string base10 = std::to_string(sum * ((negative != std::string::npos) ? -1 : 1));
