@@ -207,3 +207,19 @@ a.anchor {
   top: -100px;
   visibility: hidden;
 }
+
+div#dummy-id {
+  float: right;
+  height: 200px;
+  width: 550px;
+  padding: 0px 10px;
+  position: relative;
+  top: 7em;
+  right: 7em;
+}
+
+iframe#dummy-id{
+  border: 0;
+  height: 100%;
+  width: 100%;
+}
