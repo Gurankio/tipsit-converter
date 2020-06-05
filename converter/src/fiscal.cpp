@@ -106,6 +106,7 @@ std::string converter::Fiscal::to(const std::string& code) {
     bool isFemale = (tokens.at(2).at(0) == 'F');
     std::string day(tokens.at(5).begin(), tokens.at(5).begin() + 3);
     int actualDay = std::stoi(day) + isFemale * 40;
+    if (actualDay < 10) result.push_back('0');
     result.append(std::to_string(actualDay));
 
     // Luogo + Provincia  i = 3, 4
