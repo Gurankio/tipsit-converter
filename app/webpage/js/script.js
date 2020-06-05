@@ -184,7 +184,9 @@ function convert()
     document.getElementById("output-value").textContent = map["data"];
     return 0;
   } else if(map["outputType"] == "segment7") {
-    createDigits(0.4, converter.convert(map).split("_"));
+    var output = converter.convert(map);
+    var digits = output.replace(" ", "_").split("_");
+    createDigits(0.4, digits);
     document.getElementById("defaultCanvas0").style.display="inline";
   } else {
     document.getElementById("p5-canvas").innerHTML = "";
